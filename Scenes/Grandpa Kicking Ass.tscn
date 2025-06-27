@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://bptlcgq6b2rfe"]
+
+[ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/ps1-house/ps1_house.glb" id="1_g8u6v"]
+[ext_resource type="PackedScene" uid="uid://bjes0wocr427p" path="res://Assets/Models/Wooden Drawer/psx_wooden_drawers.glb" id="2_4btgq"]
+[ext_resource type="PackedScene" uid="uid://sg000ehnnm53" path="res://Assets/Models/VHS Player/psx_vhs_player__tape.glb" id="3_mnyd6"]
+[ext_resource type="PackedScene" uid="uid://dnaiog46wwcta" path="res://Assets/Models/TV/psx_crt_tv.glb" id="4_yifum"]
+[ext_resource type="PackedScene" uid="uid://d1ld7txqpgulg" path="res://Assets/Models/Lamp/retro_lowpoly_lamp.glb" id="5_x6tsx"]
+
+[node name="GrandpaKickingAss" type="Node3D"]
+
+[node name="House" parent="." instance=ExtResource("1_g8u6v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
+
+[node name="Cube_004_22" parent="House/Sketchfab_model/root/GLTF_SceneRootNode" index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.763291, 0.304416, 0.278686, -6.05164)
+
+[node name="Cam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.929158, 0.369682, 0, -0.369682, 0.929158, -1.19822, 1.26282, 0.44258)
+
+[node name="Drawers" parent="." instance=ExtResource("2_4btgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.920349, -0.477791, -4.61883)
+
+[node name="VHS Player" parent="." instance=ExtResource("3_mnyd6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98184, 0.511667, -4.87195)
+
+[node name="TV" parent="." instance=ExtResource("4_yifum")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.982744, 0.64445, -4.86506)
+
+[node name="Lamp" parent="." instance=ExtResource("5_x6tsx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.498656, 0.665484, -4.61715)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lamp"]
+transform = Transform3D(-0.999962, 0.00872664, 3.81453e-10, 0, -4.37114e-08, 1, 0.00872664, 0.999962, 4.37097e-08, 0.0206419, 0.925349, -0.0340023)
+light_color = Color(1, 0.666667, 0.231373, 1)
+spot_range = 0.563
+spot_attenuation = 5.35
+spot_angle = 24.65
+spot_angle_attenuation = 4.75686
+
+[editable path="House"]

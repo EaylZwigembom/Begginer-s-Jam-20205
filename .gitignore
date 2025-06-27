@@ -1,16 +1,18 @@
-# Godot 4+ specific ignores
-.godot/
-.nomedia
-
-# Godot-specific ignores
+# Ignore Godot's internal cache and builds
 .import/
-export.cfg
-export_credentials.cfg
+export/
+.godot/
+mono/
 
-# Imported translations (automatically generated from CSV files)
-*.translation
+# Ignore temporary files
+*.tmp
+*.log
 
-# Mono-specific ignores
-.mono/
-data_*/
-mono_crash.*.json
+# Don't ignore actual project files
+!project.godot
+!*.gd
+!*.tscn
+!*.tres
+!*.png
+!*.wav
+!assets/

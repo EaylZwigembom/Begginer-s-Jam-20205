@@ -14,3 +14,7 @@ config/name="Unbirth"
 run/main_scene="uid://bptlcgq6b2rfe"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

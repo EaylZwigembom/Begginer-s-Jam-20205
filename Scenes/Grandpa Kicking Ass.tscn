@@ -1,12 +1,35 @@
-[gd_scene load_steps=6 format=3 uid="uid://bptlcgq6b2rfe"]
+[gd_scene load_steps=22 format=3 uid="uid://bptlcgq6b2rfe"]
 
-[ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/ps1-house/ps1_house.glb" id="1_g8u6v"]
-[ext_resource type="PackedScene" uid="uid://bjes0wocr427p" path="res://Assets/Models/Wooden Drawer/psx_wooden_drawers.glb" id="2_4btgq"]
-[ext_resource type="PackedScene" uid="uid://sg000ehnnm53" path="res://Assets/Models/VHS Player/psx_vhs_player__tape.glb" id="3_mnyd6"]
-[ext_resource type="PackedScene" uid="uid://dnaiog46wwcta" path="res://Assets/Models/TV/psx_crt_tv.glb" id="4_yifum"]
-[ext_resource type="PackedScene" uid="uid://d1ld7txqpgulg" path="res://Assets/Models/Lamp/retro_lowpoly_lamp.glb" id="5_x6tsx"]
+[ext_resource type="Script" uid="uid://teqwuncae00g" path="res://GrandpaKicksAss.gd" id="1_4ah18"]
+[ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_g8u6v"]
+[ext_resource type="PackedScene" uid="uid://bjes0wocr427p" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Wooden Drawer/psx_wooden_drawers.glb" id="2_4btgq"]
+[ext_resource type="Material" uid="uid://j2flvv7on2l0" path="res://Assets/Materials/plank_mat.tres" id="2_n3jm5"]
+[ext_resource type="PackedScene" uid="uid://b74xyyg0u87x3" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Furniture/old_lowpoly_furniture.glb" id="3_8diyt"]
+[ext_resource type="PackedScene" uid="uid://sg000ehnnm53" path="res://Assets/Models/Scene - Grandpa Kicks Ass/VHS Player/psx_vhs_player__tape.glb" id="3_mnyd6"]
+[ext_resource type="PackedScene" uid="uid://c8wjoa27vm2nt" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Cardboard boxes/psx_style_cardboard_boxes.glb" id="4_hugr1"]
+[ext_resource type="PackedScene" uid="uid://dnaiog46wwcta" path="res://Assets/Models/Scene - Grandpa Kicks Ass/TV/psx_crt_tv.glb" id="4_yifum"]
+[ext_resource type="PackedScene" uid="uid://d1ld7txqpgulg" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Lamp/retro_lowpoly_lamp.glb" id="5_x6tsx"]
+[ext_resource type="PackedScene" uid="uid://dcuo6qj250lu6" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Dog/french_bulldog_psx.glb" id="7_yifum"]
+[ext_resource type="Texture2D" uid="uid://byowxt5ds1yr8" path="res://Assets/Textures/TV Screen.png" id="8_n3jm5"]
+[ext_resource type="PackedScene" uid="uid://dlgoct6si2xgw" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Chair/psx_chair.glb" id="9_xnwea"]
+[ext_resource type="PackedScene" uid="uid://c1ec7aa7p1cer" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Eating Desk/psx_tv_stand.glb" id="10_hns37"]
+[ext_resource type="PackedScene" uid="uid://doybar0s2iok0" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Plates/psx_breakfast_plate.glb" id="13_unstd"]
+[ext_resource type="PackedScene" uid="uid://bla8ihajlt6sc" path="res://Prefabs/grandpa.tscn" id="14_n3jm5"]
+[ext_resource type="PackedScene" uid="uid://tobntidque02" path="res://Prefabs/kid.tscn" id="14_unstd"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xnwea"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ah18"]
+albedo_texture = ExtResource("8_n3jm5")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qc6q0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3n57w"]
 
 [node name="GrandpaKickingAss" type="Node3D"]
+script = ExtResource("1_4ah18")
 
 [node name="House" parent="." instance=ExtResource("1_g8u6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
@@ -14,22 +37,125 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.02
 [node name="Cube_004_22" parent="House/Sketchfab_model/root/GLTF_SceneRootNode" index="13"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.763291, 0.304416, 0.278686, -6.05164)
 
-[node name="Cam" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.929158, 0.369682, 0, -0.369682, 0.929158, -1.19822, 1.26282, 0.44258)
+[node name="Floor" type="Node" parent="House"]
 
-[node name="Drawers" parent="." instance=ExtResource("2_4btgq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.920349, -0.477791, -4.61883)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.234702, 0.0808161, 0.218621)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
-[node name="VHS Player" parent="." instance=ExtResource("3_mnyd6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.98184, 0.511667, -4.87195)
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7653, 0.0808161, 0.218621)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
-[node name="TV" parent="." instance=ExtResource("4_yifum")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.982744, 0.64445, -4.86506)
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7653, 0.0808161, 0.218621)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
-[node name="Lamp" parent="." instance=ExtResource("5_x6tsx")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.498656, 0.665484, -4.61715)
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.234702, 0.0808161, -1.78138)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Lamp"]
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7653, 0.0808161, -1.78138)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7653, 0.0808161, -1.78138)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.234702, 0.0808161, -3.78138)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7653, 0.0808161, -3.78138)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="House/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7653, 0.0808161, -3.78138)
+material_override = ExtResource("2_n3jm5")
+mesh = SubResource("PlaneMesh_8diyt")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
+surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
+
+[node name="Furniture" parent="House" instance=ExtResource("3_8diyt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45787, 0.0154937, -2.91496)
+
+[node name="Kitchen_Cabinet" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="0"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1179.48, 0, -148.944)
+
+[node name="Kitchen_Cabinet_OLD_FURNITURE _02_0" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode/Kitchen_Cabinet" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000672102, -0.686229, -1.11759e-07)
+
+[node name="small_Bookshelf" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="1"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -58.939, 0, -167.472)
+
+[node name="small_Bookshelf_OLD_FURNITURE _02_0" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode/small_Bookshelf" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.39667, 0, 0)
+
+[node name="small_Dresser" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="2"]
+transform = Transform3D(-4.37114e-06, -100, -4.37114e-06, 0, -4.37114e-06, 100, -100, 4.37114e-06, 1.91069e-13, -187.94, 0, 52.7855)
+
+[node name="rustic_Wood_Table" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="3"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1382.91, 0, 263.229)
+
+[node name="old_Bookcase" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="4"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1627.08, 0, -145.734)
+
+[node name="antique_iron_stove_chimney" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="5"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1211.41, 93.3145, 30.7128)
+
+[node name="antique_iron_stove" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="6"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1211.41, 0, 50.766)
+
+[node name="old_Wardrobe" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="7"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1380.96, 0, -145.734)
+
+[node name="Sketchfab_Scene" parent="House/Furniture/Sketchfab_model/348e5a65a16242bda6a77309f64a7a84_fbx/RootNode" index="8" instance=ExtResource("4_hugr1")]
+transform = Transform3D(15, 0, 0, 0, 15, 3.33067e-15, 0, -3.33067e-15, 15, -104.343, -2.75755, -162.353)
+
+[node name="Drawers" parent="House/Furniture" instance=ExtResource("2_4btgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.540136, -0.401758, -1.67962)
+
+[node name="VHS Player" parent="House" instance=ExtResource("3_mnyd6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.979223, 0.603193, -4.8477)
+
+[node name="TV" parent="House" instance=ExtResource("4_yifum")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.980127, 0.735976, -4.84081)
+
+[node name="Screen" type="MeshInstance3D" parent="House/TV/Sketchfab_model/7f3fe8e6ca2c4c47a9f8869f58dd767d_fbx/RootNode/TVCRT/TVCRT_M_TVCRT_0" index="0"]
+transform = Transform3D(0.262324, 0, 0, 0, -1, 1.74949e-08, 0, -8.74228e-08, -0.200119, -0.0171254, -0.197169, 0.274621)
+material_override = SubResource("StandardMaterial3D_4ah18")
+mesh = SubResource("PlaneMesh_qc6q0")
+surface_material_override/0 = SubResource("StandardMaterial3D_3n57w")
+
+[node name="Lamp" parent="House" instance=ExtResource("5_x6tsx")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.496039, 0.75701, -4.5929)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="House/Lamp"]
 transform = Transform3D(-0.999962, 0.00872664, 3.81453e-10, 0, -4.37114e-08, 1, 0.00872664, 0.999962, 4.37097e-08, 0.0206419, 0.925349, -0.0340023)
 light_color = Color(1, 0.666667, 0.231373, 1)
 spot_range = 0.563
@@ -37,4 +163,41 @@ spot_attenuation = 5.35
 spot_angle = 24.65
 spot_angle_attenuation = 4.75686
 
+[node name="OmniLight3D" type="OmniLight3D" parent="House/Lamp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00480348, 0.375795, 0.0375385)
+light_color = Color(0.674254, 0.536406, 0.316817, 1)
+light_energy = 0.516
+light_size = 4.805
+
+[node name="Diner Stuff" type="Node" parent="House"]
+
+[node name="Sketchfab_Scene2" parent="House/Diner Stuff" instance=ExtResource("9_xnwea")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -1.7383, 0, -3.08051)
+
+[node name="Sketchfab_Scene3" parent="House/Diner Stuff" instance=ExtResource("9_xnwea")]
+transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.260689, 0, -3.07718)
+
+[node name="Sketchfab_Scene" parent="House/Diner Stuff" instance=ExtResource("10_hns37")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07163, -0.091504, -3.2234)
+
+[node name="Sketchfab_Scene4" parent="House/Diner Stuff" instance=ExtResource("13_unstd")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -1.50525, 0.812038, -3.08357)
+
+[node name="Sketchfab_Scene5" parent="House/Diner Stuff" instance=ExtResource("13_unstd")]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.685287, 0.812038, -3.08357)
+
+[node name="Cam" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.893371, 0.449319, 0, -0.449319, 0.893371, -1.19822, 1.6186, 0.113133)
+
+[node name="Grandpa" parent="." instance=ExtResource("14_n3jm5")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.57819, 1.19209e-07, -2.15247)
+
+[node name="Kid" parent="." instance=ExtResource("14_unstd")]
+transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, -0.841838, 0, -2.07029)
+
+[node name="Dog" parent="." instance=ExtResource("7_yifum")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16807, 0.0750555, -2.85545)
+
 [editable path="House"]
+[editable path="House/Furniture"]
+[editable path="House/TV"]

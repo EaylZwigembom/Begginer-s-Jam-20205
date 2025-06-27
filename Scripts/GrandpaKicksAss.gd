@@ -1,12 +1,19 @@
 extends Node
 
-@onready var grandpa_anim = get_node("Grandpa/Model_And_Animations/AnimationPlayer")
-@onready var child_anim = get_node("Kid/Model_And_Animations/AnimationPlayer")
-@onready var isKidDead = false;
+@export var grandpa_anim = null
+@export var child_anim = null
+@export var isKidDead = false;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	GrampsPunch()
-	ChildAnim()
+	if grandpa_anim:
+		GrampsPunch()  # or a real animation name
+	else:
+		push_error("grandpa_anim is null!")
+
+	if child_anim:
+		ChildAnim()
+	else:
+		push_error("child_anim is null!")
 
 
 func GrampsPunch() -> void:

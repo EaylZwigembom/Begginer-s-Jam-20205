@@ -371,8 +371,10 @@ _data = {
 &"Sitting": SubResource("Animation_21vt7")
 }
 
-[node name="GrandpaKickingAss" type="Node3D"]
+[node name="GrandpaKickingAss" type="Node3D" node_paths=PackedStringArray("grandpa", "kid")]
 script = ExtResource("1_4ah18")
+grandpa = NodePath("Grandpa")
+kid = NodePath("Kid")
 
 [node name="House" parent="." instance=ExtResource("1_g8u6v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
@@ -386,62 +388,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.763291, 0.304416, 0.278686, -6
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.234702, 0.0808161, 0.218621)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7653, 0.0808161, 0.218621)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7653, 0.0808161, 0.218621)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.234702, 0.0808161, -1.78138)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7653, 0.0808161, -1.78138)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D6" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7653, 0.0808161, -1.78138)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D7" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.234702, 0.0808161, -3.78138)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D8" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7653, 0.0808161, -3.78138)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="MeshInstance3D9" type="MeshInstance3D" parent="House/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.7653, 0.0808161, -3.78138)
 material_override = ExtResource("2_n3jm5")
 mesh = SubResource("PlaneMesh_8diyt")
-skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/GrandpaKickingAss/House")
 surface_material_override/0 = SubResource("StandardMaterial3D_xnwea")
 
 [node name="Furniture" parent="House" instance=ExtResource("3_8diyt")]
@@ -533,8 +526,10 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.685287, 0.812038,
 transform = Transform3D(1, 0, 0, 0, 0.893371, 0.449319, 0, -0.449319, 0.893371, -1.19822, 1.6186, 0.113133)
 
 [node name="Grandpa" parent="." instance=ExtResource("14_4ah18")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.21396, 0, -1.67504)
 
 [node name="Kid" parent="." instance=ExtResource("15_qc6q0")]
+transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, -0.35719, -1.19209e-07, -1.68736)
 
 [node name="Dog" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16807, 0.0750555, -2.85545)

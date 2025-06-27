@@ -1,7 +1,10 @@
+class_name GrandpaKicksAss
 extends Node
 
-@export var grandpa_anim = null
-@export var child_anim = null
+@export var grandpa : Grandpa
+@export var kid : Kid
+@onready var grandpa_anim = grandpa.grandpa_anim
+@onready var child_anim = kid.child_anim
 @export var isKidDead = false;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

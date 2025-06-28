@@ -11,11 +11,13 @@ extends CharacterBody3D
 @export var mrTime_anim : AnimationPlayer
 @export var mrTime : Node3D
 @export var animation_player : AnimationPlayer
+@export var blackScreen : ColorRect
+@export var text : Label
 
 func _ready():
 	startChase = false
 	jumpscare = false
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -23,7 +25,6 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	# Handle jump.
 	if !startChase and !jumpscare:
-	
 		if isFreeMovement:
 			if Input.is_action_just_pressed("jump") and is_on_floor():
 				velocity.y = JUMP_VELOCITY
@@ -53,16 +54,26 @@ func _physics_process(delta: float) -> void:
 func StartChase():
 		animation_player.play("lookBack")
 		await animation_player.animation_finished
+		#chaseAmbience.play()
 		animation_player.play("LookForward")
 		startChase = false
-		SPEED = 3.5
+		SPEED = 3
 			
 func Jumpscare():
+		#chaseAmbience.stop()
+		%Camera3D.rotation.x = 0
+		#jumpscareSound.play()
 		animation_player.play("Jumpscare") 
-		mrTime.position = Vector3(position.x - 5, mrTime.position.y, position.z)
+		mrTime.position = Vector3(position.x + 2, mrTime.position.y, position.z)
 		mrTime_anim.play("mixamo_com")
-		await mrTime_anim.animation_finished
-		get_tree().change_scene_to_file("res://Scenes/AbandondPlace.tscn")
+		await get_tree().create_timer(2.0).timeout
+		mrTime_anim.stop()
+		#jumpscareSound.stop()
+		blackScreen.visible = true
+		await get_tree().create_timer(0.7).timeout
+		text.visible = true
+		await get_tree().create_timer(1.5).timeout
+		get_tree().change_scene_to_file("res://Scenes/OldNeighborhood.tscn")
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		if!startChase and !jumpscare:

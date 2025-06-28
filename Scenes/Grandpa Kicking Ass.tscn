@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bptlcgq6b2rfe"]
+[gd_scene load_steps=39 format=3 uid="uid://bptlcgq6b2rfe"]
 
 [ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_g8u6v"]
 [ext_resource type="PackedScene" uid="uid://bjes0wocr427p" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Wooden Drawer/psx_wooden_drawers.glb" id="2_4btgq"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cruwvowshjnku" path="res://Assets/Models/More than 2 scences/old-man-psx/Grandpa.fbx" id="15_o7ji8"]
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="16_q6cam"]
 [ext_resource type="Script" uid="uid://dbmv3dyjuae85" path="res://Scripts/kid.gd" id="17_o7ji8"]
+[ext_resource type="FontFile" uid="uid://dq1qasjonp30r" path="res://Assets/Fonts/velino-font-family/Compressed Display/VelinoCompressedDisplay-Medium.otf" id="18_3n57w"]
 [ext_resource type="Texture2D" uid="uid://c5fbx3700j724" path="res://Assets/Models/More than 2 scences/old-man-psx/cursed kid.png" id="18_hack3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]
@@ -2285,6 +2286,10 @@ _data = {
 [sub_resource type="Environment" id="Environment_qc6q0"]
 background_mode = 1
 
+[sub_resource type="LabelSettings" id="LabelSettings_o7ji8"]
+font = ExtResource("18_3n57w")
+font_size = 30
+
 [node name="GrandpaKickingAss" type="Node3D"]
 
 [node name="House" parent="." instance=ExtResource("1_g8u6v")]
@@ -2436,10 +2441,12 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.685287, 0.812038,
 [node name="Cam" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.893371, 0.449319, 0, -0.449319, 0.893371, -1.19822, 1.6186, 0.113133)
 
-[node name="Grandpa" type="Node3D" parent="." node_paths=PackedStringArray("anim")]
+[node name="Grandpa" type="Node3D" parent="." node_paths=PackedStringArray("anim", "blackScreen", "labels")]
 transform = Transform3D(-4.37114e-08, 0.121869, 0.992546, 0, 0.992546, -0.121869, -1, -5.32708e-09, -4.33856e-08, -1.32007, 0.0807212, -1.67504)
 script = ExtResource("14_3n57w")
 anim = NodePath("Model_And_Animations/AnimationPlayer")
+blackScreen = NodePath("../CanvasLayer/blackScreen")
+labels = [NodePath("../CanvasLayer/Text1"), NodePath("../CanvasLayer/Text2"), NodePath("../CanvasLayer/Text3"), NodePath("../CanvasLayer/Text4")]
 
 [node name="Model_And_Animations" parent="Grandpa" instance=ExtResource("15_o7ji8")]
 
@@ -2599,7 +2606,6 @@ light_color = Color(0.75892, 0.802269, 0.850285, 1)
 light_energy = 2.625
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="blackScreen" type="ColorRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
@@ -2609,6 +2615,50 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Text1" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "I hate him so much"
+label_settings = SubResource("LabelSettings_o7ji8")
+horizontal_alignment = 1
+
+[node name="Text2" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "He always beats me up"
+label_settings = SubResource("LabelSettings_o7ji8")
+horizontal_alignment = 1
+
+[node name="Text3" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "And i'm so tired of him..."
+label_settings = SubResource("LabelSettings_o7ji8")
+horizontal_alignment = 1
+
+[node name="Text4" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "And i'm so tired of him..."
+label_settings = SubResource("LabelSettings_o7ji8")
+horizontal_alignment = 1
 
 [editable path="House"]
 [editable path="House/Furniture"]

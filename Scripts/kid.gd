@@ -24,8 +24,6 @@ func _process(delta):
 			if !isCalled:
 				Death();
 				isCalled = true
-	else:
-		print("Child Dead...")
 
 func GetPunched():
 	animation_player.play("getPunched")

@@ -1,48 +1,340 @@
-[gd_scene load_steps=10 format=3 uid="uid://kyrncjuffr51"]
+[gd_scene load_steps=20 format=3 uid="uid://kyrncjuffr51"]
 
-[ext_resource type="PackedScene" uid="uid://y344uis6ycte" path="res://Prefabs/player.tscn" id="1_l08u4"]
-[ext_resource type="Texture2D" uid="uid://cbuiu3ycjfp6c" path="res://Assets/moonlit_golf_4k.hdr" id="2_r5686"]
+[ext_resource type="Script" uid="uid://csasi5d7x3cwp" path="res://Scripts/playerScript.gd" id="1_hnc28"]
+[ext_resource type="Texture2D" uid="uid://cuia84m8kxfss" path="res://Assets/Sky.png" id="2_r5686"]
+[ext_resource type="PackedScene" uid="uid://ybtfkd8gw2je" path="res://Assets/Models/NeighborHoodRoamPresent/Neighborhood/abandoned_house.glb" id="3_0rb6q"]
+[ext_resource type="PackedScene" uid="uid://b36rct0jytg6d" path="res://Assets/Models/More than 2 scences/mrTime/smiler_backrooms.glb" id="4_1vod0"]
+[ext_resource type="Script" uid="uid://cd1sytkvawgtk" path="res://Scripts/mr_time_show.gd" id="4_u5u0u"]
+[ext_resource type="Script" uid="uid://hipr0p1vrh4a" path="res://Scenes/mr_time_jumpscare.gd" id="5_hnc28"]
+[ext_resource type="PackedScene" uid="uid://cxe188076ldiu" path="res://Assets/Models/More than 2 scences/mrTime/antique_wall_clock.glb" id="5_xqqoc"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l08u4"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3icqa"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_r5686"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y6xdh"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l08u4"]
-albedo_color = Color(0.287456, 0, 0.0118172, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_5wxv7"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0rb6q"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5hcb"]
+albedo_color = Color(0.125911, 0.125911, 0.125911, 1)
+
+[sub_resource type="Animation" id="Animation_y6xdh"]
+resource_name = "lookBack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5wxv7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y5hcb"]
+_data = {
+&"RESET": SubResource("Animation_5wxv7"),
+&"lookBack": SubResource("Animation_y6xdh")
+}
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0rb6q"]
 panorama = ExtResource("2_r5686")
 filter = false
+energy_multiplier = 0.0
 
 [sub_resource type="Sky" id="Sky_1vod0"]
 sky_material = SubResource("PanoramaSkyMaterial_0rb6q")
 
 [sub_resource type="Environment" id="Environment_0rb6q"]
 background_mode = 2
+background_energy_multiplier = 0.0
 sky = SubResource("Sky_1vod0")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.150319, 0.167042, 0.193333, 1)
+fog_light_energy = 1.15
+fog_density = 0.98
+fog_depth_curve = 0.366021
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0rb6q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0rb6q"]
+size = Vector3(1, 10, 20)
 
 [node name="RoamNeighborhoodPresentTime" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_l08u4")
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("mrTime_anim", "mrTime", "animation_player")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 104.902, 0, 0)
+script = ExtResource("1_hnc28")
+SPEED = 20.0
+mrTime_anim = NodePath("../mrTime/AnimationPlayer")
+mrTime = NodePath("../mrTime")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
-mesh = SubResource("PlaneMesh_r5686")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_l08u4")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_3icqa")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_0rb6q")
-debug_fill = false
+[node name="WorldModel" type="Node3D" parent="Player"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="CharacterBody3D" parent="." instance=ExtResource("1_l08u4")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/WorldModel"]
+layers = 2
+mesh = SubResource("CapsuleMesh_y6xdh")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player/WorldModel"]
+transform = Transform3D(0.750151, 0, 0, 0, 0.165071, 0, 0, 0, 0.626821, 0, 0.444341, -0.21996)
+layers = 2
+mesh = SubResource("BoxMesh_5wxv7")
+surface_material_override/0 = SubResource("StandardMaterial3D_y5hcb")
+
+[node name="Head" type="Node3D" parent="Player"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50944, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+unique_name_in_owner = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+&"": SubResource("AnimationLibrary_y5hcb")
+}
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.989016, -0.11273, 0.0956016, 0, 0.64679, 0.762668, -0.147809, -0.754291, 0.639685, 0, 8.7636, 0)
+light_energy = 0.192
+light_indirect_energy = 0.835
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
 shadow_enabled = true
+shadow_opacity = 0.2
+sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0rb6q")
+
+[node name="Neighborhood" parent="." instance=ExtResource("3_0rb6q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3524, 97.933)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 98.188, -1.3, -105.213)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Neighborhood/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_0rb6q")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 69.2979, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D15" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 112.461, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D16" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 112.461, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 26.2979, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -16.9556, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -62.1807, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -105.315, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -148.449, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -191.557, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D8" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 69.2979, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D9" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 26.2979, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D10" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -16.9556, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D11" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -62.1807, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D12" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -105.315, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D13" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -148.449, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="SpotLight3D14" type="SpotLight3D" parent="Neighborhood"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -191.557, 6.42293, -95.4833)
+light_color = Color(1, 0.709804, 0.188235, 1)
+light_energy = 16.0
+spot_range = 20.858
+spot_attenuation = 1.2
+
+[node name="mrTimeShow" type="Area3D" parent="." node_paths=PackedStringArray("mrTime", "playerScript")]
+script = ExtResource("4_u5u0u")
+mrTime = NodePath("../mrTime")
+playerScript = NodePath("../Player")
+
+[node name="mrTimeShow" type="CollisionShape3D" parent="mrTimeShow"]
+unique_name_in_owner = true
+shape = SubResource("BoxShape3D_0rb6q")
+
+[node name="mrTimeJumpscare" type="Area3D" parent="." node_paths=PackedStringArray("playerScript")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.327, 0, 0)
+disable_mode = 2
+script = ExtResource("5_hnc28")
+playerScript = NodePath("../Player")
+
+[node name="mrTimeJumpscare" type="CollisionShape3D" parent="mrTimeJumpscare"]
+shape = SubResource("BoxShape3D_0rb6q")
+
+[node name="mrTime" parent="." instance=ExtResource("4_1vod0")]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10.7173, 0.0529131, -0.307465)
+visible = false
+
+[node name="Skeleton3D" parent="mrTime/Sketchfab_model/78a2d1d329004dc4b3be348a26d99ced_fbx/Object_2/RootNode/Object_4" index="0"]
+bones/1/position = Vector3(0.781226, 420.375, 1.09615)
+bones/1/rotation = Quaternion(0.100383, -0.163362, -0.0143536, 0.981341)
+bones/2/rotation = Quaternion(0.0390443, -0.00504788, 0.0167412, 0.999084)
+bones/3/rotation = Quaternion(0.0648891, -0.0105699, 0.0125205, 0.997758)
+bones/4/rotation = Quaternion(0.064992, -0.00957179, 0.012803, 0.997758)
+bones/5/rotation = Quaternion(-0.0686847, 0.0274482, -0.0227585, 0.997001)
+bones/6/rotation = Quaternion(-0.19631, 0.121264, -0.0356583, 0.972361)
+bones/8/rotation = Quaternion(0.580473, 0.389517, -0.618523, 0.358827)
+bones/9/rotation = Quaternion(0.305055, 0.0600789, 0.174619, 0.934259)
+bones/10/rotation = Quaternion(-0.0323289, -0.0111512, 0.684728, 0.727996)
+bones/11/rotation = Quaternion(-0.229001, 0.118189, -0.0660759, 0.963963)
+bones/12/rotation = Quaternion(0.224857, 0.0959588, 0.0696238, 0.967152)
+bones/13/rotation = Quaternion(-0.0493869, -0.0809252, 0.166444, 0.981483)
+bones/14/rotation = Quaternion(-0.0175375, -0.0286174, 0.20632, 0.977909)
+bones/16/rotation = Quaternion(0.277487, 0.00671611, 0.0545311, 0.959157)
+bones/17/rotation = Quaternion(0.235367, 0.00299871, -0.0938678, 0.967358)
+bones/18/rotation = Quaternion(0.101189, -0.00433115, -0.0331625, 0.994305)
+bones/20/rotation = Quaternion(0.284898, 0.0310939, 0.0830061, 0.954451)
+bones/21/rotation = Quaternion(0.231361, 0.000970796, -0.0931879, 0.968394)
+bones/22/rotation = Quaternion(0.162103, -0.000418624, -0.0148636, 0.986662)
+bones/24/rotation = Quaternion(0.282317, 0.0050689, 0.0574739, 0.957585)
+bones/25/rotation = Quaternion(0.218252, 0.000385292, -0.0928678, 0.971464)
+bones/26/rotation = Quaternion(0.135384, -0.00134493, -0.0269546, 0.990426)
+bones/28/rotation = Quaternion(0.258125, -0.0102635, 0.045008, 0.965008)
+bones/29/rotation = Quaternion(0.230632, -0.00211367, -0.0915166, 0.968725)
+bones/30/rotation = Quaternion(0.101517, -0.00380406, -0.0306893, 0.994353)
+bones/32/rotation = Quaternion(0.62824, -0.37093, 0.561408, 0.390572)
+bones/33/rotation = Quaternion(0.365966, 0.0135849, -0.199937, 0.908796)
+bones/34/rotation = Quaternion(-0.0320388, 0.00770761, -0.71345, 0.699931)
+bones/35/rotation = Quaternion(-0.00787634, -0.178293, 0.0402535, 0.983122)
+bones/36/rotation = Quaternion(0.239792, -0.104115, -0.0764436, 0.962194)
+bones/37/rotation = Quaternion(-0.0471888, 0.0806087, -0.176814, 0.979802)
+bones/38/rotation = Quaternion(-0.0167311, 0.0318858, -0.194241, 0.980293)
+bones/40/rotation = Quaternion(0.297064, 0.000813253, -0.052247, 0.953427)
+bones/41/rotation = Quaternion(0.233958, -0.00248789, 0.0952732, 0.967564)
+bones/42/rotation = Quaternion(0.0998235, 0.0041645, 0.0344537, 0.9944)
+bones/44/rotation = Quaternion(0.305122, -0.0336113, -0.0896693, 0.947486)
+bones/45/rotation = Quaternion(0.23129, -0.0021928, 0.0949357, 0.968239)
+bones/46/rotation = Quaternion(0.162466, 0.00132553, 0.0166461, 0.986573)
+bones/48/rotation = Quaternion(0.302463, 0.0038998, -0.0540484, 0.951619)
+bones/49/rotation = Quaternion(0.21734, 0.000741381, 0.0949634, 0.971465)
+bones/50/rotation = Quaternion(0.134971, 0.000733385, 0.0288311, 0.99043)
+bones/52/rotation = Quaternion(0.278532, 0.0129549, -0.0473852, 0.95917)
+bones/53/rotation = Quaternion(0.23, 0.00209012, 0.0951845, 0.968522)
+bones/54/rotation = Quaternion(0.101438, 0.00358567, 0.0314166, 0.994339)
+bones/56/rotation = Quaternion(0.148996, 0.336163, 0.916046, -0.16017)
+bones/57/rotation = Quaternion(-0.38321, -0.0459509, 0.0388642, 0.921699)
+bones/58/rotation = Quaternion(0.530111, -0.178464, -0.116182, 0.820752)
+bones/59/rotation = Quaternion(0.287434, 0.00337859, -0.00142766, 0.957793)
+bones/61/rotation = Quaternion(-0.13535, 0.291494, 0.942435, 0.0923518)
+bones/62/rotation = Quaternion(-0.397422, 0.061039, -0.0442986, 0.914531)
+bones/63/rotation = Quaternion(0.575335, 0.166924, 0.102748, 0.794084)
+bones/64/rotation = Quaternion(0.280726, -0.000579682, 0.000178285, 0.959788)
+
+[node name="Clock" parent="mrTime" instance=ExtResource("5_xqqoc")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.49012e-08, -0.0975342, 0.363136)
+
+[connection signal="body_entered" from="mrTimeShow" to="Player" method="_on_mr_time_show_body_entered"]
+[connection signal="body_entered" from="mrTimeShow" to="mrTimeShow" method="_on_body_entered"]
+[connection signal="body_entered" from="mrTimeJumpscare" to="mrTimeJumpscare" method="_on_body_entered"]
+
+[editable path="mrTime"]

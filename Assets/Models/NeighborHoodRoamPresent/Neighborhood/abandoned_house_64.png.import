@@ -1,0 +1,37 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://crjxfwvc8580h"
+path="res://.godot/imported/abandoned_house_64.png-b40509d6c0043a05998749c34249729c.ctex"
+metadata={
+"vram_texture": false
+}
+generator_parameters={
+"md5": "9d27400dc187b26349016983f19d8e98"
+}
+
+[deps]
+
+source_file="res://Assets/Models/NeighborHoodRoamPresent/Neighborhood/abandoned_house_64.png"
+dest_files=["res://.godot/imported/abandoned_house_64.png-b40509d6c0043a05998749c34249729c.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

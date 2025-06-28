@@ -1,3 +1,19 @@
-[gd_scene format=3 uid="uid://c51lwwmb1jcbs"]
+[gd_scene load_steps=5 format=3 uid="uid://c51lwwmb1jcbs"]
+
+[ext_resource type="Texture2D" uid="uid://d135btjp42gyc" path="res://Assets/paradoxSky.hdr" id="1_q4sr2"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_avwg5"]
+panorama = ExtResource("1_q4sr2")
+
+[sub_resource type="Sky" id="Sky_qsam7"]
+sky_material = SubResource("PanoramaSkyMaterial_avwg5")
+
+[sub_resource type="Environment" id="Environment_q8mc0"]
+background_mode = 2
+sky = SubResource("Sky_qsam7")
+sky_custom_fov = 140.0
 
 [node name="ParadoxRealm" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q8mc0")

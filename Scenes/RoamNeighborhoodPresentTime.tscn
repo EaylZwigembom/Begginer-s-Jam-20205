@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://kyrncjuffr51"]
+[gd_scene load_steps=10 format=3 uid="uid://kyrncjuffr51"]
 
 [ext_resource type="PackedScene" uid="uid://y344uis6ycte" path="res://Prefabs/player.tscn" id="1_l08u4"]
+[ext_resource type="Texture2D" uid="uid://cbuiu3ycjfp6c" path="res://Assets/moonlit_golf_4k.hdr" id="2_r5686"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l08u4"]
 
@@ -11,16 +12,16 @@ albedo_color = Color(0.287456, 0, 0.0118172, 1)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0rb6q"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_l08u4"]
-ground_color = Color(0.874409, 0.779848, 0.670435, 1)
-energy_multiplier = 10.0
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0rb6q"]
+panorama = ExtResource("2_r5686")
+filter = false
 
-[sub_resource type="Sky" id="Sky_r5686"]
-sky_material = SubResource("PhysicalSkyMaterial_l08u4")
+[sub_resource type="Sky" id="Sky_1vod0"]
+sky_material = SubResource("PanoramaSkyMaterial_0rb6q")
 
 [sub_resource type="Environment" id="Environment_0rb6q"]
 background_mode = 2
-sky = SubResource("Sky_r5686")
+sky = SubResource("Sky_1vod0")
 
 [node name="RoamNeighborhoodPresentTime" type="Node3D"]
 

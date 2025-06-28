@@ -4,6 +4,7 @@ extends Node3D
 @export var anim : AnimationPlayer
 @export var isBeatingStarted : bool
 @export var isKidDead : bool
+@export var blackScreen : ColorRect
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	isBeatingStarted = false
@@ -24,3 +25,5 @@ func GrampsPunch() -> void:
 	anim.play("Special Move")
 	await anim.animation_finished
 	anim.play("Celebrating")
+	await anim.animation_finished
+	

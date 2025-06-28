@@ -52,21 +52,21 @@ func _physics_process(delta: float) -> void:
 			
 func StartChase():
 		animation_player.play("lookBack")
-		if animation_player.animation_finished:
-			animation_player.play("lookBack", -1.0)
-			startChase = false
-			SPEED = 3.5
+		await animation_player.animation_finished
+		animation_player.play("LookForward")
+		startChase = false
+		SPEED = 3.5
 			
 func Jumpscare():
-		animation_player.play("lookBack", 100)
-		if animation_player.animation_finished:
-			mrTime.position.z = position.z - 5
-			mrTime_anim.play("mixamo_com")
-			if mrTime_anim.animation_finished:
-				get_tree().change_scene_to_file("res://Scenes/AbandondPlace.tscn")
+		animation_player.play("Jumpscare") 
+		mrTime.position = Vector3(position.x - 5, mrTime.position.y, position.z)
+		mrTime_anim.play("mixamo_com")
+		await mrTime_anim.animation_finished
+		get_tree().change_scene_to_file("res://Scenes/AbandondPlace.tscn")
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		if isFreeMovement:
-			rotate_y(-event.relative.x * mouseSensitivity)
-		%Camera3D.rotate_x(-event.relative.y * mouseSensitivity)
-		%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+		if!startChase and !jumpscare:
+			if isFreeMovement:
+				rotate_y(-event.relative.x * mouseSensitivity)
+			%Camera3D.rotate_x(-event.relative.y * mouseSensitivity)
+			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))

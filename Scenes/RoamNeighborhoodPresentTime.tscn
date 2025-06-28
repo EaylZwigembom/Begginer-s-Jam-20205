@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://kyrncjuffr51"]
+[gd_scene load_steps=22 format=3 uid="uid://kyrncjuffr51"]
 
 [ext_resource type="Script" uid="uid://csasi5d7x3cwp" path="res://Scripts/playerScript.gd" id="1_hnc28"]
 [ext_resource type="Texture2D" uid="uid://cuia84m8kxfss" path="res://Assets/Sky.png" id="2_r5686"]
@@ -17,9 +17,25 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y5hcb"]
 albedo_color = Color(0.125911, 0.125911, 0.125911, 1)
 
-[sub_resource type="Animation" id="Animation_y6xdh"]
-resource_name = "lookBack"
-length = 2.0
+[sub_resource type="Animation" id="Animation_b6a71"]
+resource_name = "Jumpscare"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Head:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hnc28"]
+resource_name = "LookForward"
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,10 +43,10 @@ tracks/0/path = NodePath("Head:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0.6, 0.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0)]
+"values": [Vector3(0, 3.14159, 0), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_5wxv7"]
@@ -47,9 +63,39 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Head:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_y6xdh"]
+resource_name = "lookBack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 3.14159, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y5hcb"]
 _data = {
+&"Jumpscare": SubResource("Animation_b6a71"),
+&"LookForward": SubResource("Animation_hnc28"),
 &"RESET": SubResource("Animation_5wxv7"),
 &"lookBack": SubResource("Animation_y6xdh")
 }
@@ -83,7 +129,7 @@ size = Vector3(1, 10, 20)
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("mrTime_anim", "mrTime", "animation_player")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 104.902, 0, 0)
 script = ExtResource("1_hnc28")
-SPEED = 20.0
+SPEED = 100.0
 mrTime_anim = NodePath("../mrTime/AnimationPlayer")
 mrTime = NodePath("../mrTime")
 animation_player = NodePath("AnimationPlayer")
@@ -108,7 +154,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_y5hcb")
 
 [node name="Head" type="Node3D" parent="Player"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.50944, 0)
+transform = Transform3D(-1, 0, 2.53518e-06, 0, 1, 0, -2.53518e-06, 0, -1, 0, 1.50944, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/Head"]
 unique_name_in_owner = true
@@ -333,7 +379,6 @@ bones/64/rotation = Quaternion(0.280726, -0.000579682, 0.000178285, 0.959788)
 [node name="Clock" parent="mrTime" instance=ExtResource("5_xqqoc")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 1.49012e-08, -0.0975342, 0.363136)
 
-[connection signal="body_entered" from="mrTimeShow" to="Player" method="_on_mr_time_show_body_entered"]
 [connection signal="body_entered" from="mrTimeShow" to="mrTimeShow" method="_on_body_entered"]
 [connection signal="body_entered" from="mrTimeJumpscare" to="mrTimeJumpscare" method="_on_body_entered"]
 

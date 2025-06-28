@@ -12,10 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://dlgoct6si2xgw" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Chair/psx_chair.glb" id="9_xnwea"]
 [ext_resource type="PackedScene" uid="uid://c1ec7aa7p1cer" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Eating Desk/psx_tv_stand.glb" id="10_hns37"]
 [ext_resource type="PackedScene" uid="uid://doybar0s2iok0" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Plates/psx_breakfast_plate.glb" id="13_unstd"]
-[ext_resource type="Script" uid="uid://dgpi160p5vqkr" path="res://Prefabs/grandpa.gd" id="14_3n57w"]
+[ext_resource type="Script" uid="uid://dgpi160p5vqkr" path="res://Scripts/grandpa.gd" id="14_3n57w"]
 [ext_resource type="PackedScene" uid="uid://cruwvowshjnku" path="res://Assets/Models/More than 2 scences/old-man-psx/Grandpa.fbx" id="15_o7ji8"]
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="16_q6cam"]
-[ext_resource type="Script" uid="uid://dbmv3dyjuae85" path="res://Prefabs/kid.gd" id="17_o7ji8"]
+[ext_resource type="Script" uid="uid://dbmv3dyjuae85" path="res://Scripts/kid.gd" id="17_o7ji8"]
 [ext_resource type="Texture2D" uid="uid://c5fbx3700j724" path="res://Assets/Models/More than 2 scences/old-man-psx/cursed kid.png" id="18_hack3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]

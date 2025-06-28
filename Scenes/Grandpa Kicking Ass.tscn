@@ -2618,9 +2618,15 @@ color = Color(0, 0, 0, 1)
 
 [node name="Text1" type="Label" parent="CanvasLayer"]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -15.5
+offset_right = 102.0
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "I hate him so much"
@@ -2629,9 +2635,15 @@ horizontal_alignment = 1
 
 [node name="Text2" type="Label" parent="CanvasLayer"]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -15.5
+offset_right = 122.0
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "He always beats me up"
@@ -2640,9 +2652,15 @@ horizontal_alignment = 1
 
 [node name="Text3" type="Label" parent="CanvasLayer"]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -15.5
+offset_right = 132.5
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "And i'm so tired of him..."
@@ -2651,9 +2669,15 @@ horizontal_alignment = 1
 
 [node name="Text4" type="Label" parent="CanvasLayer"]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -15.5
+offset_right = 132.5
+offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "And i'm so tired of him..."

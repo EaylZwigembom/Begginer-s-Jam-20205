@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://kyrncjuffr51"]
+
+[ext_resource type="PackedScene" uid="uid://y344uis6ycte" path="res://Prefabs/player.tscn" id="1_l08u4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_l08u4"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r5686"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l08u4"]
+albedo_color = Color(0.287456, 0, 0.0118172, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0rb6q"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_l08u4"]
+ground_color = Color(0.874409, 0.779848, 0.670435, 1)
+energy_multiplier = 10.0
+
+[sub_resource type="Sky" id="Sky_r5686"]
+sky_material = SubResource("PhysicalSkyMaterial_l08u4")
+
+[sub_resource type="Environment" id="Environment_0rb6q"]
+background_mode = 2
+sky = SubResource("Sky_r5686")
+
+[node name="RoamNeighborhoodPresentTime" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_l08u4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("PlaneMesh_r5686")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_l08u4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_0rb6q")
+debug_fill = false
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_l08u4")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.989016, -0.11273, 0.0956016, 0, 0.64679, 0.762668, -0.147809, -0.754291, 0.639685, 0, 8.7636, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0rb6q")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dmduv1oocls64"]
+[gd_scene load_steps=35 format=3 uid="uid://dmduv1oocls64"]
 
 [ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_gpt17"]
 [ext_resource type="Material" uid="uid://j2flvv7on2l0" path="res://Assets/Materials/plank_mat.tres" id="2_7lfba"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="13_gvg2h"]
 [ext_resource type="Script" uid="uid://dbmv3dyjuae85" path="res://Scripts/kid.gd" id="14_gtt1e"]
 [ext_resource type="Texture2D" uid="uid://c5fbx3700j724" path="res://Assets/Models/More than 2 scences/old-man-psx/cursed kid.png" id="15_bl0ml"]
+[ext_resource type="Texture2D" uid="uid://cuia84m8kxfss" path="res://Assets/Sky.png" id="16_7lfba"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_bad80"]
 
@@ -2273,6 +2274,25 @@ _data = {
 &"getPunched": SubResource("Animation_8ntfn")
 }
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_n662p"]
+panorama = ExtResource("16_7lfba")
+filter = false
+energy_multiplier = 0.0
+
+[sub_resource type="Sky" id="Sky_p5n8r"]
+sky_material = SubResource("PanoramaSkyMaterial_n662p")
+
+[sub_resource type="Environment" id="Environment_gphsh"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_p5n8r")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.150319, 0.167042, 0.193333, 1)
+fog_light_energy = 1.15
+fog_density = 0.98
+fog_depth_curve = 0.366021
+
 [node name="OldNeighborhood" type="Node3D"]
 
 [node name="OriginalHouse" type="Node3D" parent="."]
@@ -2577,6 +2597,19 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -1.14264, 3.52495, -2.48118)
 light_color = Color(0.75892, 0.802269, 0.850285, 1)
 light_energy = 2.625
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.989016, -0.11273, 0.0956016, 0, 0.64679, 0.762668, -0.147809, -0.754291, 0.639685, 0, 8.7636, 0)
+light_energy = 0.192
+light_indirect_energy = 0.835
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
+shadow_enabled = true
+shadow_opacity = 0.2
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gphsh")
 
 [editable path="OriginalHouse/House"]
 [editable path="OriginalHouse/House/Furniture"]

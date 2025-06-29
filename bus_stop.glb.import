@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bapf8caqvhdpc"
-path="res://.godot/imported/deadman_psx.glb-47f748d36d3f466183c7869e77b2ae24.scn"
+uid="uid://bdqbvw8owjhsp"
+path="res://.godot/imported/bus_stop.glb-9e7c469b254e33dc1d3512e037a9a5b8.scn"
 
 [deps]
 
-source_file="res://Assets/Models/Old Neighborhood/deadman_psx.glb"
-dest_files=["res://.godot/imported/deadman_psx.glb-47f748d36d3f466183c7869e77b2ae24.scn"]
+source_file="res://bus_stop.glb"
+dest_files=["res://.godot/imported/bus_stop.glb-9e7c469b254e33dc1d3512e037a9a5b8.scn"]
 
 [params]
 

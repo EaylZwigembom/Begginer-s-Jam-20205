@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1mjnrquwhjqf"
-path.s3tc="res://.godot/imported/deadman_psx_0.png-f2099d1617096019123a9f008de88a8b.s3tc.ctex"
+uid="uid://bji2dmplcrikv"
+path.s3tc="res://.godot/imported/bus_stop_7.jpg-caf35759164b002a34fd60d68e86e069.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "7705da1ffe29f8c9538edef980333743"
+"md5": "df4745eb2f7f4d78b16c1c0e5d32b92e"
 }
 
 [deps]
 
-source_file="res://Assets/Models/Old Neighborhood/deadman_psx_0.png"
-dest_files=["res://.godot/imported/deadman_psx_0.png-f2099d1617096019123a9f008de88a8b.s3tc.ctex"]
+source_file="res://bus_stop_7.jpg"
+dest_files=["res://.godot/imported/bus_stop_7.jpg-caf35759164b002a34fd60d68e86e069.s3tc.ctex"]
 
 [params]
 

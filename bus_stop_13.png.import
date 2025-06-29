@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bylacddtodrll"
-path.s3tc="res://.godot/imported/bus_stop_13.png-5a6fb4f06355e9548a9339563031fc28.s3tc.ctex"
+path="res://.godot/imported/bus_stop_13.png-5a6fb4f06355e9548a9339563031fc28.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "c2f500a482e08029b9afcfa80783c7ea"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://bus_stop_13.png"
-dest_files=["res://.godot/imported/bus_stop_13.png-5a6fb4f06355e9548a9339563031fc28.s3tc.ctex"]
+dest_files=["res://.godot/imported/bus_stop_13.png-5a6fb4f06355e9548a9339563031fc28.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

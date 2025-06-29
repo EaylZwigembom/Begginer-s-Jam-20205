@@ -2,19 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da6yqvmdaf5ry"
-path="res://.godot/imported/bus_stop_15.png-6e2afe93ec3d002b9f6f2cdc86346ddb.ctex"
+uid="uid://c5ysy0dlqibbs"
+path="res://.godot/imported/ps1_neighborhood_3.png-5202ad107cbb7094bdfd2098ebb690b3.ctex"
 metadata={
 "vram_texture": false
 }
 generator_parameters={
-"md5": "add25beead6113943c1ded61de2ca0d0"
+"md5": "be1ad35adda90c28fe4c8d73b2a42d7a"
 }
 
 [deps]
 
-source_file="res://bus_stop_15.png"
-dest_files=["res://.godot/imported/bus_stop_15.png-6e2afe93ec3d002b9f6f2cdc86346ddb.ctex"]
+source_file="res://ps1_neighborhood_3.png"
+dest_files=["res://.godot/imported/ps1_neighborhood_3.png-5202ad107cbb7094bdfd2098ebb690b3.ctex"]
 
 [params]
 

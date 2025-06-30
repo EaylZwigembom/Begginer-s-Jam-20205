@@ -1,11 +1,12 @@
-[gd_scene load_steps=54 format=4 uid="uid://cx4rm61sdkphn"]
+[gd_scene load_steps=62 format=4 uid="uid://cx4rm61sdkphn"]
 
 [ext_resource type="Texture2D" uid="uid://bxchdjpnx30ql" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_0.png" id="1_kqm77"]
+[ext_resource type="Script" uid="uid://cyu2v45427ucv" path="res://Scenes/main_menu.gd" id="1_snj4n"]
 [ext_resource type="Texture2D" uid="uid://dsxqsktj6dree" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_1.png" id="2_snj4n"]
 [ext_resource type="Texture2D" uid="uid://ckfsj36vqgmye" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_2.png" id="3_wofhc"]
 [ext_resource type="Texture2D" uid="uid://trqjfsth7fsu" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_3.png" id="4_qmf6k"]
 [ext_resource type="Texture2D" uid="uid://bohvessviueg1" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_4.jpg" id="5_rn1t7"]
-[ext_resource type="FontFile" uid="uid://dq1qasjonp30r" path="res://Assets/Fonts/velino-font-family/Compressed Display/VelinoCompressedDisplay-Medium.otf" id="18_rgw8d"]
+[ext_resource type="FontFile" uid="uid://es2nnrxamqfb" path="res://Assets/Fonts/AveriaSerif-Bold.ttf" id="7_kqm77"]
 [ext_resource type="Shader" uid="uid://canr2rgsupbku" path="res://Assets/Shaders/posterization.gdshader" id="19_76svt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5wwm"]
@@ -671,21 +672,76 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qcnek")
 
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_v10og"]
+energy_multiplier = 70.95
+
+[sub_resource type="Sky" id="Sky_kqm77"]
+sky_material = SubResource("PanoramaSkyMaterial_v10og")
+
 [sub_resource type="Environment" id="Environment_qc6q0"]
-background_mode = 1
+background_energy_multiplier = 2.25
+sky = SubResource("Sky_kqm77")
 
-[sub_resource type="LabelSettings" id="LabelSettings_o7ji8"]
-font = ExtResource("18_rgw8d")
-font_size = 30
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snj4n"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2gv66"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wofhc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_snj4n"]
+font = ExtResource("7_kqm77")
+font_size = 65
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kqm77"]
 shader = ExtResource("19_76svt")
 shader_parameter/SCREEN_WIDTH = 320.0
-shader_parameter/RED_COMPONENT = 16.0
-shader_parameter/GREEN_COMPONENT = 16.0
-shader_parameter/BLUE_COMPONENT = 16.0
+shader_parameter/RED_COMPONENT = 10.0
+shader_parameter/GREEN_COMPONENT = 10.0
+shader_parameter/BLUE_COMPONENT = 10.0
 
-[node name="GrandpaKickingAss" type="Node3D"]
+[sub_resource type="Animation" id="Animation_snj4n"]
+resource_name = "fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Fade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_wofhc"]
+resource_name = "unFade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/unFade:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qmf6k"]
+_data = {
+&"fade": SubResource("Animation_snj4n"),
+&"unFade": SubResource("Animation_wofhc")
+}
+
+[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("fade", "unFade", "screenFader")]
+script = ExtResource("1_snj4n")
+fade = NodePath("CanvasLayer/Fade")
+unFade = NodePath("CanvasLayer/unFade")
+screenFader = NodePath("screenFader")
 
 [node name="House" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
@@ -832,7 +888,56 @@ skeleton = NodePath("")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qc6q0")
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -94.0
+offset_top = -172.0
+offset_right = 278.0
+offset_bottom = -4.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="startGame" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_kqm77")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_snj4n")
+action_mode = 0
+text = "START"
+flat = true
+
+[node name="quitGame" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_kqm77")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wofhc")
+action_mode = 0
+text = "QUIT"
+flat = true
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 385.0
+offset_bottom = 86.0
+text = "The Unbirth"
+label_settings = SubResource("LabelSettings_snj4n")
 
 [node name="blackScreen" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -844,76 +949,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Text1" type="Label" parent="CanvasLayer"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -102.0
-offset_top = -15.5
-offset_right = 102.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "I hate him so much"
-label_settings = SubResource("LabelSettings_o7ji8")
-horizontal_alignment = 1
-
-[node name="Text2" type="Label" parent="CanvasLayer"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -122.0
-offset_top = -15.5
-offset_right = 122.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "He always beats me up"
-label_settings = SubResource("LabelSettings_o7ji8")
-horizontal_alignment = 1
-
-[node name="Text3" type="Label" parent="CanvasLayer"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.5
-offset_top = -15.5
-offset_right = 132.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "And i'm so tired of him..."
-label_settings = SubResource("LabelSettings_o7ji8")
-horizontal_alignment = 1
-
-[node name="Text4" type="Label" parent="CanvasLayer"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.5
-offset_top = -15.5
-offset_right = 132.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "And i'm so tired of him..."
-label_settings = SubResource("LabelSettings_o7ji8")
-horizontal_alignment = 1
-
 [node name="posterization" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_2gv66")
+material = SubResource("ShaderMaterial_kqm77")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -921,6 +958,32 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="unFade" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Fade" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.79755, 1.20643, -0.119891)
 current = true
+
+[node name="screenFader" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qmf6k")
+}
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_pressed"]

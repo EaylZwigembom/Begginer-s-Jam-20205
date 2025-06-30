@@ -14,12 +14,16 @@ extends CharacterBody3D
 @export var SPEED : float
 @export var JUMP_VELOCITY = 4.5
 @export var isFreeMovement : bool
+@export var walkSound : AudioStreamPlayer2D
+@export var jumpSound : AudioStreamPlayer2D
+@export var landSound : AudioStreamPlayer2D
 
 @export var canLook : bool
 @export var head : Node3D
 @export var mouseSensitivity : float = 0.006
 @export var startChase : bool
 @export var jumpscare : bool
+@export var jumpscareSound : AudioStreamPlayer2D
 @export var mrTime_anim : AnimationPlayer
 @export var mrTime : Node3D
 @export var animation_player : AnimationPlayer
@@ -69,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
 	# Handle jump.
 	if canWalk:
 		if isFreeMovement:
@@ -80,10 +85,22 @@ func _physics_process(delta: float) -> void:
 		var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		var direction;
 		if isFreeMovement:
+			if is_on_floor() and input_dir != Vector2.ZERO:
+				if not walkSound.playing:
+					walkSound.play()
+			else:
+				if walkSound.playing:
+					walkSound.stop()
+
 			direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		else:
 			if input_dir.y < 0:
+				if not walkSound.playing:
+					walkSound.play()
 				direction = (transform.basis * Vector3(0, 0, input_dir.y)).normalized()
+			else:
+				if walkSound.playing:
+					walkSound.stop()
 		if direction:
 			velocity.x = direction.x * SPEED
 			velocity.z = direction.z * SPEED
@@ -187,9 +204,10 @@ func Jumpscare():
 		animation_player.play("Jumpscare") 
 		mrTime.position = Vector3(position.x + 2, mrTime.position.y, position.z)
 		mrTime_anim.play("mixamo_com")
-		await time(2.0)
+		jumpscareSound.play()
+		await time(1.0)
 		mrTime_anim.stop()
-		#jumpscareSound.stop()
+		jumpscareSound.stop()
 		blackScreen.visible = true
 		await time(0.7)
 		monolog.visible = true

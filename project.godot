@@ -10,13 +10,16 @@ config_version=5
 
 [application]
 
-config/name="Unbirth"
+config/name="weffe"
+config/version="0.1"
 run/main_scene="uid://bptlcgq6b2rfe"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [input]
@@ -61,3 +64,5 @@ Shoot={
 
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

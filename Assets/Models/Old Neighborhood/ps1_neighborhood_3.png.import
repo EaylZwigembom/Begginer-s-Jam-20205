@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://m3p7jxybxgvd"
 path.s3tc="res://.godot/imported/ps1_neighborhood_3.png-899192fbcafaffc016fdcde6a3b40dd3.s3tc.ctex"
+path.etc2="res://.godot/imported/ps1_neighborhood_3.png-899192fbcafaffc016fdcde6a3b40dd3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Models/Old Neighborhood/ps1_neighborhood_3.png"
-dest_files=["res://.godot/imported/ps1_neighborhood_3.png-899192fbcafaffc016fdcde6a3b40dd3.s3tc.ctex"]
+dest_files=["res://.godot/imported/ps1_neighborhood_3.png-899192fbcafaffc016fdcde6a3b40dd3.s3tc.ctex", "res://.godot/imported/ps1_neighborhood_3.png-899192fbcafaffc016fdcde6a3b40dd3.etc2.ctex"]
 
 [params]
 

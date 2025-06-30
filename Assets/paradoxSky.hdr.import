@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d135btjp42gyc"
 path.bptc="res://.godot/imported/paradoxSky.hdr-7559f2f5c78b11f8def8c0d38f739ba2.bptc.ctex"
+path.astc="res://.godot/imported/paradoxSky.hdr-7559f2f5c78b11f8def8c0d38f739ba2.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/paradoxSky.hdr"
-dest_files=["res://.godot/imported/paradoxSky.hdr-7559f2f5c78b11f8def8c0d38f739ba2.bptc.ctex"]
+dest_files=["res://.godot/imported/paradoxSky.hdr-7559f2f5c78b11f8def8c0d38f739ba2.bptc.ctex", "res://.godot/imported/paradoxSky.hdr-7559f2f5c78b11f8def8c0d38f739ba2.astc.ctex"]
 
 [params]
 

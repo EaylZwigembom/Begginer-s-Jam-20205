@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://2fl1wdqeglfx"
 path.s3tc="res://.godot/imported/arms.png-22d77f927f879b8d212b47d8afa3fa76.s3tc.ctex"
+path.etc2="res://.godot/imported/arms.png-22d77f927f879b8d212b47d8afa3fa76.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/psx-first-person-arms/source/PSX_First_Person_Arms/arms.png"
-dest_files=["res://.godot/imported/arms.png-22d77f927f879b8d212b47d8afa3fa76.s3tc.ctex"]
+dest_files=["res://.godot/imported/arms.png-22d77f927f879b8d212b47d8afa3fa76.s3tc.ctex", "res://.godot/imported/arms.png-22d77f927f879b8d212b47d8afa3fa76.etc2.ctex"]
 
 [params]
 

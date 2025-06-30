@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtxn1d3wrihja"
 path.s3tc="res://.godot/imported/Lamppost.png-927bb2d869935d2e65482a4bf9c1be57.s3tc.ctex"
+path.etc2="res://.godot/imported/Lamppost.png-927bb2d869935d2e65482a4bf9c1be57.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/Models/Old Neighborhood/Neighborhood/Lamppost.png"
-dest_files=["res://.godot/imported/Lamppost.png-927bb2d869935d2e65482a4bf9c1be57.s3tc.ctex"]
+dest_files=["res://.godot/imported/Lamppost.png-927bb2d869935d2e65482a4bf9c1be57.s3tc.ctex", "res://.godot/imported/Lamppost.png-927bb2d869935d2e65482a4bf9c1be57.etc2.ctex"]
 
 [params]
 

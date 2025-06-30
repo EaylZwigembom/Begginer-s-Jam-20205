@@ -14,33 +14,33 @@ uniform float DITHERING_STRENTH :hint_range(0., .07) = 0.005; // Be carefull wit
 
 int PSXDither(ivec2 fragcoord) {
     const int dither_table[16] = {
-        -4, +0, -3, +1, 
-        +2, -2, +3, -1, 
-        -3, +1, -4, +0, 
+        -4, +0, -3, +1,
+        +2, -2, +3, -1,
+        -3, +1, -4, +0,
         +3, -1, +2, -2
     };
-    
+
     int x = fragcoord.x % 4;
     int y = fragcoord.y % 4;
-    
+
     return dither_table[y * 4 + x];
 }
 
-void fragment(){                  
-    // Reduce pixels            
+void fragment(){
+    // Reduce pixels
     vec2 size = SCREEN_WIDTH * SCREEN_PIXEL_SIZE.xy/SCREEN_PIXEL_SIZE.x;
     vec2 coor = floor( UV * size) ;
     vec2 uv =  FRAGCOORD.xy / (1.0 / SCREEN_PIXEL_SIZE).xy;
-    
+
     // Get source color
-    vec3 col = texture(SCREEN_TEXTURE, uv).xyz;     
-    
+    vec3 col = texture(SCREEN_TEXTURE, uv).xyz;
+
     // Dithering
     col += float(PSXDither(ivec2(FRAGCOORD.xy))) * DITHERING_STRENTH;
-    
-    // Reduce colors    
-    col = floor(col * COLOR_FACTOR) / COLOR_FACTOR;    
-    
+
+    // Reduce colors
+    col = floor(col * COLOR_FACTOR) / COLOR_FACTOR;
+
     // Output to screen
     COLOR = vec4(col,1.);
 }

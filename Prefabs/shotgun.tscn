@@ -5484,21 +5484,6 @@ _data = {
 &"hold_gun": SubResource("Animation_wps58")
 }
 
-[sub_resource type="Animation" id="Animation_7qe4y"]
-resource_name = "muzzle_flash_fire"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("muzzle_flash:light_energy")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [199.24]
-}
-
 [sub_resource type="Animation" id="Animation_ya8p4"]
 length = 0.001
 tracks/0/type = "value"
@@ -5512,6 +5497,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [16.0]
+}
+
+[sub_resource type="Animation" id="Animation_7qe4y"]
+resource_name = "muzzle_flash_fire"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("muzzle_flash:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [199.24]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2g2ko"]

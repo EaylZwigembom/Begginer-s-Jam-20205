@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="weffe"
+config/name="The Unbirth"
 config/version="0.1"
 run/main_scene="uid://bptlcgq6b2rfe"
 config/features=PackedStringArray("4.4", "Forward Plus")

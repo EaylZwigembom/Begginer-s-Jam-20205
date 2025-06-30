@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bptlcgq6b2rfe"]
+[gd_scene load_steps=41 format=3 uid="uid://bptlcgq6b2rfe"]
 
 [ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_hl6dm"]
 [ext_resource type="Material" uid="uid://j2flvv7on2l0" path="res://Assets/Materials/plank_mat.tres" id="2_krlll"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://dbmv3dyjuae85" path="res://Scripts/kid.gd" id="16_ql5as"]
 [ext_resource type="Texture2D" uid="uid://c5fbx3700j724" path="res://Assets/Models/More than 2 scences/old-man-psx/cursed kid.png" id="17_eafyf"]
 [ext_resource type="FontFile" uid="uid://dq1qasjonp30r" path="res://Assets/Fonts/velino-font-family/Compressed Display/VelinoCompressedDisplay-Medium.otf" id="18_qwl2x"]
+[ext_resource type="Shader" uid="uid://canr2rgsupbku" path="res://Assets/Shaders/posterization.gdshader" id="19_krlll"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]
 
@@ -2290,6 +2291,13 @@ background_mode = 1
 font = ExtResource("18_qwl2x")
 font_size = 30
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2gv66"]
+shader = ExtResource("19_krlll")
+shader_parameter/SCREEN_WIDTH = 320.0
+shader_parameter/RED_COMPONENT = 16.0
+shader_parameter/GREEN_COMPONENT = 16.0
+shader_parameter/BLUE_COMPONENT = 16.0
+
 [node name="GrandpaKickingAss" type="Node3D"]
 
 [node name="House" parent="." instance=ExtResource("1_hl6dm")]
@@ -2684,6 +2692,15 @@ grow_vertical = 2
 text = "And i'm so tired of him..."
 label_settings = SubResource("LabelSettings_o7ji8")
 horizontal_alignment = 1
+
+[node name="posterization" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_2gv66")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [editable path="House"]
 [editable path="House/Furniture"]

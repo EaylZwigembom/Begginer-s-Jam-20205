@@ -2,6 +2,13 @@ class_name PlayerScript
 extends CharacterBody3D
 
 @export var cheatMode : bool
+@export var isBeatingNow : bool
+@export var fadeAnimation : AnimationPlayer
+@export var fadeScren : ColorRect
+@export var objectiveOne : Label
+@export var objectiveTwo : Label
+@export var objectivesPanel : ColorRect
+@export var monologLabels : Array[Label]
 
 @export var canWalk : bool
 @export var SPEED : float
@@ -37,6 +44,7 @@ var target_gun = null
 @export var monolog : Label
 
 func _ready():
+	
 	if cheatMode:
 		SPEED = 25
 		JUMP_VELOCITY = 10
@@ -100,12 +108,22 @@ func _physics_process(delta: float) -> void:
 			
 			elif collider.name == "youngGrandpa":
 				if Input.is_action_just_pressed("Shoot") and canShoot:
+					objectiveTwo.label_settings.font_color = Color.GREEN
 					shotgun_sound.play()
-					muzzle_flash_animation.play("muzzle_flash_fire")
+					muzzle_flash_light.visible = true
+					muzzle_flash_animation.play("flash")
 					muzzle_flash_model.play("fire")
-					#await time(0.11)
-					#blackScreen.visible = true
+					await time(0.11)
+					blackScreen.visible = true
+					await time(1.5)
+					objectivesPanel.visible = false
+					await time(0.5)
 					FinalMonolog()
+					
+			elif collider.name == "LittleTimmy" and isBeatingNow == false:
+				pickup_text.visible = true
+				if Input.is_action_just_pressed("Interact"):
+					BeatTimmy()
 					
 					
 			else:
@@ -126,6 +144,7 @@ func _physics_process(delta: float) -> void:
 func pick_up_shotgun():
 	canShoot = true
 	picked_up_shotgun = true
+	objectiveOne.label_settings.font_color = Color.GREEN
 	muzzle_flash_light.visible = true
 	shotgun_prefab.visible = false
 	shotgun.visible = true 
@@ -133,7 +152,19 @@ func pick_up_shotgun():
 	can_pickup = false
 	youngGrandpa.visible = true
 	grampsCollider.disabled = false
-			
+
+func BeatTimmy():
+	if fadeScren != null and fadeAnimation != null:
+		objectiveOne.label_settings.font_color = Color.GREEN
+		isBeatingNow = true
+		pickup_text.visible = false
+		fadeScren.visible = true
+		objectivesPanel.visible = false
+		fadeAnimation.play("fade")
+		await fadeAnimation.animation_finished
+		await time(2)
+		get_tree().change_scene_to_file("res://Scenes/KickGrandchildAss.tscn")
+		
 func StartChase():
 		canLook = false
 		canWalk = false
@@ -178,4 +209,10 @@ func time(seconds: float) -> void:
 	await get_tree().create_timer(seconds).timeout
 
 func FinalMonolog():
-	print("Monolog")
+	for i in len(monologLabels):
+		monologLabels[i].visible = true
+		await time(5)
+		monologLabels[i].visible = false
+		await time(0.3)
+	get_tree().change_scene_to_file("res://Scenes/kickAssTransition.tscn")
+	

@@ -9,6 +9,7 @@ extends Node3D
 #@export var darkAmbience : AudioEffect
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	isBeatingStarted = false
 	isKidDead = false
 	blackScreen.visible = true

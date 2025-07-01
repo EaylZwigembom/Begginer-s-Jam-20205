@@ -1,12 +1,13 @@
-[gd_scene load_steps=62 format=4 uid="uid://cx4rm61sdkphn"]
+[gd_scene load_steps=63 format=4 uid="uid://cx4rm61sdkphn"]
 
 [ext_resource type="Texture2D" uid="uid://bxchdjpnx30ql" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_0.png" id="1_kqm77"]
-[ext_resource type="Script" uid="uid://cyu2v45427ucv" path="res://Scenes/main_menu.gd" id="1_snj4n"]
+[ext_resource type="Script" uid="uid://cyu2v45427ucv" path="res://Scripts/main_menu.gd" id="1_snj4n"]
 [ext_resource type="Texture2D" uid="uid://dsxqsktj6dree" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_1.png" id="2_snj4n"]
 [ext_resource type="Texture2D" uid="uid://ckfsj36vqgmye" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_2.png" id="3_wofhc"]
 [ext_resource type="Texture2D" uid="uid://trqjfsth7fsu" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_3.png" id="4_qmf6k"]
 [ext_resource type="Texture2D" uid="uid://bohvessviueg1" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_4.jpg" id="5_rn1t7"]
 [ext_resource type="FontFile" uid="uid://es2nnrxamqfb" path="res://Assets/Fonts/AveriaSerif-Bold.ttf" id="7_kqm77"]
+[ext_resource type="PackedScene" uid="uid://bqmsddjpvm0k" path="res://Assets/Models/Car/psx_low-poly_car_-_renault.glb" id="9_wofhc"]
 [ext_resource type="Shader" uid="uid://canr2rgsupbku" path="res://Assets/Shaders/posterization.gdshader" id="19_76svt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5wwm"]
@@ -679,7 +680,9 @@ energy_multiplier = 70.95
 sky_material = SubResource("PanoramaSkyMaterial_v10og")
 
 [sub_resource type="Environment" id="Environment_qc6q0"]
-background_energy_multiplier = 2.25
+background_mode = 1
+background_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+background_energy_multiplier = 3.71
 sky = SubResource("Sky_kqm77")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snj4n"]
@@ -977,13 +980,23 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.79755, 1.20643, -0.119891)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.79755, 1.20643, 2.1883)
 current = true
 
 [node name="screenFader" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_qmf6k")
 }
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("9_wofhc")]
+transform = Transform3D(0.533892, 0, 0.452725, -0.00528601, 0.699952, 0.00623371, -0.452694, -0.00817319, 0.533855, 2.39188, -0.0689723, 2.32283)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0328033, 0.526177)
+light_energy = 1.327
+light_indirect_energy = 5.01
+light_volumetric_fog_energy = 0.0
+light_specular = 0.0
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_pressed"]

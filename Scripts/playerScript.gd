@@ -10,6 +10,7 @@ extends CharacterBody3D
 @export var objectivesPanel : ColorRect
 @export var monologLabels : Array[Label]
 
+var yaw := deg_to_rad(90.0)  # Starting rotation
 @export var canWalk : bool
 @export var SPEED : float
 @export var JUMP_VELOCITY = 4.5
@@ -17,6 +18,7 @@ extends CharacterBody3D
 @export var walkSound : AudioStreamPlayer2D
 @export var jumpSound : AudioStreamPlayer2D
 @export var landSound : AudioStreamPlayer2D
+@onready var transformBasis
 
 @export var canLook : bool
 @export var head : Node3D
@@ -48,7 +50,8 @@ var target_gun = null
 @export var monolog : Label
 
 func _ready():
-	
+	yaw = rotation.y  # Sync with scene setup
+	transformBasis = transform.basis
 	if cheatMode:
 		SPEED = 25
 		JUMP_VELOCITY = 10
@@ -97,7 +100,7 @@ func _physics_process(delta: float) -> void:
 			if input_dir.y < 0:
 				if not walkSound.playing:
 					walkSound.play()
-				direction = (transform.basis * Vector3(0, 0, input_dir.y)).normalized()
+				direction = (transformBasis * Vector3(0, 0, input_dir.y)).normalized()
 			else:
 				if walkSound.playing:
 					walkSound.stop()
@@ -183,6 +186,7 @@ func BeatTimmy():
 		get_tree().change_scene_to_file("res://Scenes/KickGrandchildAss.tscn")
 		
 func StartChase():
+		walkSound.stop()
 		canLook = false
 		canWalk = false
 		animation_player.play("lookBack")
@@ -193,19 +197,21 @@ func StartChase():
 			canWalk = true
 			canLook = true
 			startChase = false
-			SPEED = 5
+			SPEED = 7.5
 			
 func Jumpscare():
+		walkSound.stop()
 		canLook = false
 		canWalk = false
 		#chaseAmbience.stop()
 		%Camera3D.rotation.x = 0
-		#jumpscareSound.play()
 		animation_player.play("Jumpscare") 
 		mrTime.position = Vector3(position.x + 2, mrTime.position.y, position.z)
 		mrTime_anim.play("mixamo_com")
-		jumpscareSound.play()
-		await time(1.0)
+		mrTime_anim.seek(0.86)
+		if not jumpscareSound.playing:
+			jumpscareSound.play()
+		await time(1)
 		mrTime_anim.stop()
 		jumpscareSound.stop()
 		blackScreen.visible = true
@@ -213,11 +219,17 @@ func Jumpscare():
 		monolog.visible = true
 		await time(1.5)
 		get_tree().change_scene_to_file("res://Scenes/OldNeighborhood.tscn")
+		
 func _unhandled_input(event):
 	if canLook:
 		if event is InputEventMouseMotion:
 			if isFreeMovement:
-				rotate_y(-event.relative.x * mouseSensitivity)
+				yaw -= event.relative.x * mouseSensitivity
+			else:
+				yaw -= event.relative.x * mouseSensitivity
+				yaw = clamp(yaw, deg_to_rad(0), deg_to_rad(180))
+				
+			rotation.y = yaw
 			%Camera3D.rotate_x(-event.relative.y * mouseSensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 			

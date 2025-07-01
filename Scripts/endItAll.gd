@@ -16,6 +16,5 @@ func _process(delta: float) -> void:
 		instruction.visible = false
 		car_animation.play("end")
 		await car_animation.animation_finished
-		get_tree().quit()
-		#get_tree().change_scene_to_file("res://Scenes/mainMenu.tscn")
+		get_tree().change_scene_to_file("res://Scenes/mainMenu.tscn")
 		

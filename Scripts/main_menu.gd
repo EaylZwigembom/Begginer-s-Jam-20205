@@ -12,6 +12,8 @@ func _ready() -> void:
 	screenFader.play("unFade")
 	await screenFader.animation_finished
 	unFade.visible = false
+	await get_tree().create_timer(1).timeout
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
 
 

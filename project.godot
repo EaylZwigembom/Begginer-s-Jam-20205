@@ -12,7 +12,7 @@ config_version=5
 
 config/name="The Unbirth"
 config/version="0.1"
-run/main_scene="uid://bptlcgq6b2rfe"
+run/main_scene="uid://cx4rm61sdkphn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"

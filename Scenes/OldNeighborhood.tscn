@@ -1,4 +1,4 @@
-[gd_scene load_steps=995 format=4 uid="uid://dmduv1oocls64"]
+[gd_scene load_steps=997 format=4 uid="uid://dmduv1oocls64"]
 
 [ext_resource type="Script" uid="uid://csasi5d7x3cwp" path="res://Scripts/playerScript.gd" id="1_gvg2h"]
 [ext_resource type="Texture2D" uid="uid://de27vih3nd0xn" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_1.jpg" id="2_gphsh"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://cruwvowshjnku" path="res://Assets/Models/More than 2 scences/old-man-psx/Grandpa.fbx" id="34_6vxf6"]
 [ext_resource type="FontFile" uid="uid://dq1qasjonp30r" path="res://Assets/Fonts/velino-font-family/Compressed Display/VelinoCompressedDisplay-Medium.otf" id="34_g7icp"]
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="35_ti3vj"]
+[ext_resource type="Shader" uid="uid://bflhvc1pfs1gt" path="res://Scenes/glitch.gdshader" id="36_w04a7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3icqa"]
 
@@ -13097,6 +13098,13 @@ texture_filter = 0
 [sub_resource type="LabelSettings" id="LabelSettings_gvg2h"]
 font_size = 24
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hbfuf"]
+shader = ExtResource("36_w04a7")
+shader_parameter/_ScanLineJitter = 0.25
+shader_parameter/_VerticalJump = 0.01
+shader_parameter/_HorizontalShake = 0.0
+shader_parameter/_ColorDrift = 0.02
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ubqt1"]
 shader = ExtResource("28_ti3vj")
 shader_parameter/SCREEN_WIDTH = 320.0
@@ -14757,12 +14765,13 @@ shadow_enabled = true
 shadow_opacity = 0.2
 sky_mode = 1
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("objectiveOne", "objectiveTwo", "objectivesPanel", "walkSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("objectiveOne", "objectiveTwo", "objectivesPanel", "monologLabels", "walkSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.824, 2.50975, -76.892)
 script = ExtResource("1_gvg2h")
 objectiveOne = NodePath("../CanvasLayer/Objectives/FindAGun")
 objectiveTwo = NodePath("../CanvasLayer/Objectives/KillGrandpa")
 objectivesPanel = NodePath("../CanvasLayer/Objectives")
+monologLabels = [NodePath("../CanvasLayer/FinalMonolog/Text1"), NodePath("../CanvasLayer/FinalMonolog/Text2"), NodePath("../CanvasLayer/FinalMonolog/Text3"), NodePath("../CanvasLayer/FinalMonolog/Text4"), NodePath("../CanvasLayer/FinalMonolog/Text5"), NodePath("../CanvasLayer/FinalMonolog/Text6"), NodePath("../CanvasLayer/FinalMonolog/Text7"), NodePath("../CanvasLayer/FinalMonolog/Text8"), NodePath("../CanvasLayer/FinalMonolog/Text9"), NodePath("../CanvasLayer/FinalMonolog/Text10"), NodePath("../CanvasLayer/FinalMonolog/Text11"), NodePath("../CanvasLayer/FinalMonolog/Text12")]
 SPEED = 5.5
 JUMP_VELOCITY = 3.2
 isFreeMovement = true
@@ -15280,7 +15289,7 @@ libraries = {
 
 [node name="walkSound" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("8_81ibf")
-volume_db = 10.0
+volume_db = 5.0
 
 [node name="Neighborhood" type="Node3D" parent="."]
 
@@ -18463,6 +18472,15 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Press E To Pick Up"
 label_settings = SubResource("LabelSettings_gvg2h")
+
+[node name="Glitch" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_hbfuf")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="posterization" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_ubqt1")

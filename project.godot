@@ -15,7 +15,6 @@ config/version="0.1"
 run/main_scene="uid://cx4rm61sdkphn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/show_image=false
-boot_splash/image="uid://dk5aryqn2nyr2"
 config/icon="res://icon.svg"
 
 [display]

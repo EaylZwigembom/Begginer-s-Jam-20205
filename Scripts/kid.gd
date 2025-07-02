@@ -7,6 +7,7 @@ extends Node3D
 @onready var isAnimationStarted
 @onready var isCalled = false;
 @onready var isBeatingEnded = false;
+@export var crySound : AudioStreamPlayer2D
 # Called when the node enters the scene tree for the first time.
 
 		
@@ -19,7 +20,10 @@ func _process(delta):
 			if !isKidDead:
 				GetPunched()
 				isCalled = true
+				crySound.play()
+				
 		elif isKidDead:
+			crySound.stop()
 			isCalled = false
 			if !isCalled:
 				Death();

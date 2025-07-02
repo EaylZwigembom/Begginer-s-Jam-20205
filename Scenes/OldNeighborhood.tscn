@@ -1,4 +1,4 @@
-[gd_scene load_steps=1007 format=4 uid="uid://dmduv1oocls64"]
+[gd_scene load_steps=1011 format=4 uid="uid://dmduv1oocls64"]
 
 [ext_resource type="Script" uid="uid://csasi5d7x3cwp" path="res://Scripts/playerScript.gd" id="1_gvg2h"]
 [ext_resource type="Texture2D" uid="uid://de27vih3nd0xn" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_1.jpg" id="2_gphsh"]
@@ -12,9 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://c63fbd8fwso4j" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_6.jpg" id="7_stv5a"]
 [ext_resource type="AudioStream" uid="uid://deotcd0ol66xi" path="res://Assets/SFX/walking.mp3" id="8_81ibf"]
 [ext_resource type="Texture2D" uid="uid://67e02afrl3fn" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_7.jpg" id="8_htx6g"]
+[ext_resource type="AudioStream" uid="uid://cl2ssc11y5cf" path="res://Assets/SFX/glitch.mp3" id="9_81ibf"]
 [ext_resource type="Texture2D" uid="uid://c4g6rjkmglkqr" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_8.png" id="9_g1l3f"]
 [ext_resource type="Texture2D" uid="uid://bvuvlcbdmkabd" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_9.jpg" id="10_76tnh"]
+[ext_resource type="AudioStream" uid="uid://ckv0ejmq263ct" path="res://Assets/SFX/shotgunLoad.mp3" id="10_w04a7"]
 [ext_resource type="Texture2D" uid="uid://doe34senaidk1" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_10.png" id="11_gvg2h"]
+[ext_resource type="AudioStream" uid="uid://dal8llbe0bcdo" path="res://Assets/SFX/land.mp3" id="11_hbfuf"]
 [ext_resource type="Texture2D" uid="uid://cc4k4l5txpb3g" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_11.png" id="12_gtt1e"]
 [ext_resource type="Texture2D" uid="uid://c0ascixj5jgnu" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_12.png" id="13_bl0ml"]
 [ext_resource type="Texture2D" uid="uid://bw4b2h8euauul" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_13.png" id="14_bad80"]
@@ -38,7 +41,8 @@
 [ext_resource type="FontFile" uid="uid://dq1qasjonp30r" path="res://Assets/Fonts/velino-font-family/Compressed Display/VelinoCompressedDisplay-Medium.otf" id="34_g7icp"]
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="35_ti3vj"]
 [ext_resource type="Shader" uid="uid://bflhvc1pfs1gt" path="res://Assets/Shaders/glitch.gdshader" id="36_w04a7"]
-[ext_resource type="Script" uid="uid://b83y8s7w3ema3" path="res://Scenes/mr_time.gd" id="39_g7icp"]
+[ext_resource type="FontFile" uid="uid://43uxqkamp0va" path="res://Assets/Fonts/fake receipt.otf" id="37_cqn3i"]
+[ext_resource type="Script" uid="uid://b83y8s7w3ema3" path="res://Scripts/mr_time.gd" id="39_g7icp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3icqa"]
 
@@ -13094,6 +13098,7 @@ albedo_texture = ExtResource("26_bl0ml")
 texture_filter = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_gvg2h"]
+font = ExtResource("37_cqn3i")
 font_size = 24
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hbfuf"]
@@ -13119,17 +13124,19 @@ font = ExtResource("34_g7icp")
 font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_g7icp"]
-font = ExtResource("34_g7icp")
+font = ExtResource("37_cqn3i")
 font_size = 28
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 7
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_w04a7"]
+font = ExtResource("37_cqn3i")
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hbfuf"]
+font = ExtResource("37_cqn3i")
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
 
@@ -15412,9 +15419,10 @@ shadow_enabled = true
 shadow_opacity = 0.2
 sky_mode = 1
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("mainShader", "objectiveOne", "objectiveTwo", "objectivesPanel", "monologLabels", "walkSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("glitchSound", "mainShader", "objectiveOne", "objectiveTwo", "objectivesPanel", "monologLabels", "walkSound", "landSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen", "shotgunLoad")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.824, 2.50975, -76.892)
 script = ExtResource("1_gvg2h")
+glitchSound = NodePath("glitchSound")
 mainShader = NodePath("../CanvasLayer/posterization")
 objectiveOne = NodePath("../CanvasLayer/Objectives/FindAGun")
 objectiveTwo = NodePath("../CanvasLayer/Objectives/KillGrandpa")
@@ -15424,6 +15432,7 @@ SPEED = 5.5
 JUMP_VELOCITY = 3.2
 isFreeMovement = true
 walkSound = NodePath("walkSound")
+landSound = NodePath("landSound")
 head = NodePath("Head")
 animation_player = NodePath("AnimationPlayer")
 canRaycast = true
@@ -15438,6 +15447,7 @@ muzzle_flash_model = NodePath("Head/Camera3D/Shotgun/muzzle_flash_model")
 shotgun_sound = NodePath("Head/Camera3D/Shotgun/shotgunSound")
 muzzle_flash_light = NodePath("Head/Camera3D/Shotgun/muzzle_flash")
 blackScreen = NodePath("../CanvasLayer/BlackScreen")
+shotgunLoad = NodePath("shotgunLoad")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -15937,6 +15947,17 @@ libraries = {
 
 [node name="walkSound" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("8_81ibf")
+volume_db = 5.0
+
+[node name="glitchSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("9_81ibf")
+
+[node name="shotgunLoad" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("10_w04a7")
+volume_db = 5.0
+
+[node name="landSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("11_hbfuf")
 volume_db = 5.0
 
 [node name="Neighborhood" type="Node3D" parent="."]
@@ -18891,7 +18912,7 @@ shape = SubResource("BoxShape3D_n662p")
 debug_color = Color(0.152941, 0.976471, 0.321569, 1)
 
 [node name="Node3D17" type="Node3D" parent="Colliders"]
-transform = Transform3D(52.9063, 0, 0, 0, 0.889432, -0.457067, 0, 0.457067, 0.889432, -16.4222, 1.824, -74.0743)
+transform = Transform3D(52.9063, 0, 0, 0, 0.889432, -0.457067, 0, 0.457067, 0.889432, -16.4222, 1.86292, -73.971)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Colliders/Node3D17"]
 
@@ -19615,6 +19636,7 @@ transform = Transform3D(1, 0, 0, 0, 2.22045e-16, 1, 0, -1, 2.22045e-16, 0, 0, 0)
 transform = Transform3D(0.01, 0, 0, 0, 0, -0.01, 0, 0.01, 0, 0, 0, 0)
 
 [node name="RootNode" type="Node3D" parent="Dumpsters/Sketchfab_Scene4/Sketchfab_model/Dumpster_fbx"]
+transform = Transform3D(1, 1.65436e-24, 7.45058e-09, 0, 1, -2.64698e-23, -7.45058e-09, 0, 1, 0, -71.3912, 0)
 
 [node name="Dumpster 1" type="StaticBody3D" parent="Dumpsters/Sketchfab_Scene4/Sketchfab_model/Dumpster_fbx/RootNode"]
 transform = Transform3D(0.867767, 0, 0.49697, 0, 1, 0, -0.49697, 0, 0.867767, -177.649, 46.7625, -73.9394)
@@ -19828,7 +19850,7 @@ offset_right = 102.0
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "You  had grandchildren"
+text = "You had grandchildren"
 label_settings = SubResource("LabelSettings_81ibf")
 horizontal_alignment = 1
 
@@ -20563,7 +20585,7 @@ shape = SubResource("BoxShape3D_81ibf")
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(55.5508, 0, 0, 0, 1, 0, 0, 0, 1, -9.69021, 2.00335, -74.7159)
+transform = Transform3D(55.5508, 0, 0, 0, 1, 0, 0, 0, 1, -9.69021, 2.00335, -74.6328)
 mesh = SubResource("BoxMesh_pfggx")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D"]

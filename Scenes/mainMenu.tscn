@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://cx4rm61sdkphn"]
+[gd_scene load_steps=70 format=4 uid="uid://cx4rm61sdkphn"]
 
 [ext_resource type="Texture2D" uid="uid://bxchdjpnx30ql" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_0.png" id="1_kqm77"]
 [ext_resource type="Script" uid="uid://cyu2v45427ucv" path="res://Scripts/main_menu.gd" id="1_snj4n"]
@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://ckfsj36vqgmye" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_2.png" id="3_wofhc"]
 [ext_resource type="Texture2D" uid="uid://trqjfsth7fsu" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_3.png" id="4_qmf6k"]
 [ext_resource type="Texture2D" uid="uid://bohvessviueg1" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_4.jpg" id="5_rn1t7"]
-[ext_resource type="FontFile" uid="uid://es2nnrxamqfb" path="res://Assets/Fonts/AveriaSerif-Bold.ttf" id="7_kqm77"]
+[ext_resource type="FontFile" uid="uid://43uxqkamp0va" path="res://Assets/Fonts/fake receipt.otf" id="7_qmf6k"]
+[ext_resource type="Texture2D" uid="uid://dk5aryqn2nyr2" path="res://warning.png" id="9_qmf6k"]
 [ext_resource type="PackedScene" uid="uid://bqmsddjpvm0k" path="res://Assets/Models/Car/psx_low-poly_car_-_renault.glb" id="9_wofhc"]
+[ext_resource type="AudioStream" uid="uid://bemg4n0be1j3g" path="res://Assets/SFX/clickSound.wav" id="11_yij4q"]
+[ext_resource type="AudioStream" uid="uid://62u8ynqmd3fi" path="res://Assets/SFX/hoverSound.wav" id="12_o8ral"]
 [ext_resource type="Shader" uid="uid://canr2rgsupbku" path="res://Assets/Shaders/posterization.gdshader" id="19_76svt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5wwm"]
@@ -694,7 +697,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 border_color = Color(0.8, 0.8, 0.8, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_snj4n"]
-font = ExtResource("7_kqm77")
+font = ExtResource("7_qmf6k")
 font_size = 65
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kqm77"]
@@ -707,6 +710,48 @@ shader_parameter/_ScanLineJitter = 0.25
 shader_parameter/_VerticalJump = 0.01
 shader_parameter/_HorizontalShake = 0.0
 shader_parameter/_ColorDrift = 0.02
+
+[sub_resource type="Animation" id="Animation_rn1t7"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_yij4q"]
+resource_name = "fade"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("warning:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o8ral"]
+resource_name = "unFade"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("warning:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_urxp8"]
+_data = {
+&"RESET": SubResource("Animation_rn1t7"),
+&"fade": SubResource("Animation_yij4q"),
+&"unFade": SubResource("Animation_o8ral")
+}
 
 [sub_resource type="Animation" id="Animation_snj4n"]
 resource_name = "fade"
@@ -744,11 +789,16 @@ _data = {
 &"unFade": SubResource("Animation_wofhc")
 }
 
-[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("fade", "unFade", "screenFader")]
+[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("clickSound", "hoverSound", "fade", "unFade", "screenFader", "blackScreen", "warning", "warningAnim")]
 script = ExtResource("1_snj4n")
+clickSound = NodePath("clickSound")
+hoverSound = NodePath("hoverSound")
 fade = NodePath("CanvasLayer/Fade")
 unFade = NodePath("CanvasLayer/unFade")
 screenFader = NodePath("screenFader")
+blackScreen = NodePath("CanvasLayer/blackScreen")
+warning = NodePath("CanvasLayer/warning")
+warningAnim = NodePath("CanvasLayer/warningAnim")
 
 [node name="House" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
@@ -912,7 +962,7 @@ alignment = 1
 
 [node name="startGame" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_kqm77")
+theme_override_fonts/font = ExtResource("7_qmf6k")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxFlat_snj4n")
 theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
@@ -925,7 +975,7 @@ flat = true
 
 [node name="quitGame" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("7_kqm77")
+theme_override_fonts/font = ExtResource("7_qmf6k")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/focus = SubResource("StyleBoxFlat_snj4n")
 theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
@@ -947,7 +997,6 @@ text = "The Unbirth"
 label_settings = SubResource("LabelSettings_snj4n")
 
 [node name="blackScreen" type="ColorRect" parent="CanvasLayer"]
-visible = false
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
@@ -983,6 +1032,21 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0)
 
+[node name="warning" type="TextureRect" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+texture = ExtResource("9_qmf6k")
+
+[node name="warningAnim" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_urxp8")
+}
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.79755, 1.20643, 2.1883)
 current = true
@@ -1002,5 +1066,15 @@ light_indirect_energy = 5.01
 light_volumetric_fog_energy = 0.0
 light_specular = 0.0
 
+[node name="clickSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_yij4q")
+volume_db = 15.0
+
+[node name="hoverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_o8ral")
+volume_db = 15.0
+
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_pressed"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_pressed"]

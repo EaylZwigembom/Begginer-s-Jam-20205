@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://c0v1be6acayxf"]
+[gd_scene load_steps=51 format=3 uid="uid://c0v1be6acayxf"]
 
 [ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_mjbsb"]
 [ext_resource type="Material" uid="uid://j2flvv7on2l0" path="res://Assets/Materials/plank_mat.tres" id="2_8mmhx"]
@@ -15,10 +15,13 @@
 [ext_resource type="Script" uid="uid://j48vobs7bkkl" path="res://Scripts/grandpaFinal.gd" id="13_mjbsb"]
 [ext_resource type="PackedScene" uid="uid://cruwvowshjnku" path="res://Assets/Models/More than 2 scences/old-man-psx/Grandpa.fbx" id="14_ka1qv"]
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="15_apbfi"]
+[ext_resource type="AudioStream" uid="uid://d3qnl8iq7i0h" path="res://Assets/SFX/punch.wav" id="16_8mmhx"]
 [ext_resource type="Script" uid="uid://cn8mg5wkif6pu" path="res://Scripts/kidFinal.gd" id="16_mjbsb"]
 [ext_resource type="Texture2D" uid="uid://c5fbx3700j724" path="res://Assets/Models/More than 2 scences/old-man-psx/cursed kid.png" id="17_k5o5h"]
 [ext_resource type="FontFile" uid="uid://dq1qasjonp30r" path="res://Assets/Fonts/velino-font-family/Compressed Display/VelinoCompressedDisplay-Medium.otf" id="18_0bep1"]
-[ext_resource type="Shader" uid="uid://canr2rgsupbku" path="res://Assets/Shaders/posterization.gdshader" id="19_vnci1"]
+[ext_resource type="Shader" uid="uid://cyhoqugc35u70" path="res://Assets/Shaders/posterize.gdshader" id="18_mjbsb"]
+[ext_resource type="AudioStream" uid="uid://c51vm2etfbrna" path="res://Assets/SFX/kid_cry.mp3" id="19_iofwl"]
+[ext_resource type="AudioStream" uid="uid://8slugpj7hykg" path="res://Assets/SFX/fall.wav" id="20_ha5tu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]
 
@@ -1023,6 +1026,33 @@ tracks/34/path = NodePath("Skeleton3D:mixamorig_RightHandIndex3")
 tracks/34/interp = 1
 tracks/34/loop_wrap = true
 tracks/34/keys = PackedFloat32Array(0, 1, 0.705015, -0.0870779, -0.340165, 0.616165)
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("../punch:playing")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(0.4, 0.766667, 1.09, 1.4, 1.8, 2.04, 2.26, 2.47),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true, true, true, true]
+}
+
+[sub_resource type="Animation" id="Animation_ha5tu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../punch:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_umwhc"]
 resource_name = "Special Move"
@@ -1521,6 +1551,7 @@ _data = {
 &"Death": SubResource("Animation_rlmio"),
 &"Punching": SubResource("Animation_57vop"),
 &"Punching2": SubResource("Animation_lky3a"),
+&"RESET": SubResource("Animation_ha5tu"),
 &"Special Move": SubResource("Animation_umwhc"),
 &"teep kick": SubResource("Animation_b83cm")
 }
@@ -1777,6 +1808,57 @@ tracks/34/path = NodePath("Skeleton3D:mixamorig_RightHandIndex3")
 tracks/34/interp = 1
 tracks/34/loop_wrap = true
 tracks/34/keys = PackedFloat32Array(0, 1, 0.032907, 0.0132422, 0.0633765, 0.997359, 0.866667, 1, 0.032546, 0.0132924, 0.0635764, 0.997358, 0.9, 1, 0.0311072, 0.0134923, 0.0643728, 0.99735, 0.933333, 1, 0.0289119, 0.0137976, 0.0655876, 0.997332, 0.966667, 1, 0.0264156, 0.0141444, 0.0669683, 0.997305, 1, 1, 0.0241836, 0.0144544, 0.0682023, 0.997274, 1.03333, 1, 0.0226856, 0.0146622, 0.0690302, 0.997249, 1.26667, 1, 0.0239439, 0.0144876, 0.0683348, 0.99727, 1.33333, 1, 0.0254483, 0.0142787, 0.0675031, 0.997292, 1.36667, 1, 0.0262319, 0.0141698, 0.0670699, 0.997303, 1.4, 1, 0.0271517, 0.0140421, 0.0665613, 0.997314, 1.43333, 1, 0.0280027, 0.013924, 0.0660905, 0.997323, 1.46667, 1, 0.0290127, 0.0137835, 0.0655318, 0.997333, 1.53333, 1, 0.0309202, 0.0135182, 0.0644764, 0.997348, 1.56667, 1, 0.0320405, 0.0133627, 0.0638562, 0.997355, 1.6, 1, 0.0330796, 0.0132183, 0.0632809, 0.99736, 1.63333, 1, 0.0342039, 0.0130619, 0.0626583, 0.997363, 1.66667, 1, 0.0353537, 0.0129018, 0.0620215, 0.997365, 1.7, 1, 0.0364533, 0.0127488, 0.0614123, 0.997365, 1.73333, 1, 0.0377193, 0.0125727, 0.0607108, 0.997363, 1.76667, 1, 0.0388448, 0.0124161, 0.0600869, 0.99736, 1.8, 1, 0.0401278, 0.0122374, 0.0593757, 0.997354, 1.83333, 1, 0.0413128, 0.0120725, 0.0587185, 0.997346, 1.9, 1, 0.0438238, 0.0117226, 0.0573257, 0.997324, 1.93333, 1, 0.045002, 0.0115586, 0.0566719, 0.997311, 1.96667, 1, 0.0463505, 0.0113706, 0.0559234, 0.997294, 2, 1, 0.0475308, 0.0112061, 0.0552681, 0.997277, 2.03333, 1, 0.0488449, 0.0110229, 0.0545384, 0.997255, 2.06667, 1, 0.050057, 0.0108539, 0.0538651, 0.997234, 2.13333, 1, 0.0525533, 0.0105057, 0.0524778, 0.997183, 2.16667, 1, 0.0536927, 0.0103466, 0.0518446, 0.997157, 2.2, 1, 0.054968, 0.0101688, 0.0511354, 0.997126, 2.23333, 1, 0.0560467, 0.0100182, 0.0505355, 0.997098, 2.3, 1, 0.0583184, 0.0097009, 0.0492719, 0.997034, 2.36667, 1, 0.0603309, 0.00941976, 0.0481518, 0.996972, 2.4, 1, 0.0614201, 0.00926758, 0.0475455, 0.996936, 2.43333, 1, 0.0624036, 0.00913021, 0.0469978, 0.996902, 2.5, 1, 0.0642019, 0.00887883, 0.0459963, 0.996837, 2.53333, 1, 0.0651893, 0.00874079, 0.0454462, 0.996799, 2.6, 1, 0.0667762, 0.00851895, 0.0445618, 0.996736, 2.66667, 1, 0.0683253, 0.00830218, 0.0436983, 0.996671, 2.73333, 1, 0.0695972, 0.00812416, 0.0429892, 0.996615, 2.8, 1, 0.070735, 0.00796506, 0.0423544, 0.996564, 3, 1, 0.0703846, 0.00801405, 0.0425501, 0.99658, 3.03333, 1, 0.0628567, 0.00906687, 0.0467455, 0.996886, 3.06667, 1, 0.0495874, 0.0109194, 0.0541259, 0.997242, 3.1, 1, 0.0368182, 0.0126981, 0.06121, 0.997365, 3.13333, 1, 0.0299921, 0.0136474, 0.06499, 0.997342, 3.16667, 1, 0.0280608, 0.0139158, 0.0660585, 0.997324, 3.2, 1, 0.0270731, 0.0140531, 0.0666049, 0.997313, 3.33333, 1, 0.0277966, 0.0139525, 0.0662046, 0.997321, 3.36667, 1, 0.0286694, 0.0138311, 0.0657217, 0.99733, 3.43333, 1, 0.0306124, 0.0135612, 0.0646466, 0.997346, 3.46667, 1, 0.0315111, 0.0134363, 0.0641493, 0.997352, 3.53333, 1, 0.0327891, 0.0132586, 0.0634416, 0.997359, 3.96667, 1, 0.0316516, 0.0134168, 0.0640717, 0.997353, 4.03333, 1, 0.030571, 0.0135669, 0.0646696, 0.997346, 4.1, 1, 0.0293767, 0.0137329, 0.0653305, 0.997337, 4.16667, 1, 0.0280769, 0.0139135, 0.0660495, 0.997324, 4.26667, 1, 0.0265087, 0.0141314, 0.0669169, 0.997306, 4.6, 1, 0.0281255, 0.0139068, 0.0660227, 0.997325, 4.63333, 1, 0.0290273, 0.0137815, 0.0655238, 0.997334, 4.66667, 1, 0.0300043, 0.0136456, 0.0649835, 0.997342, 4.73333, 1, 0.032132, 0.0133499, 0.0638055, 0.997356, 4.86667, 1, 0.0367461, 0.0127081, 0.0612502, 0.997365, 4.9, 1, 0.0379046, 0.0125469, 0.0606083, 0.997363, 4.93333, 1, 0.0390414, 0.0123887, 0.059978, 0.997359, 4.96667, 1, 0.0401442, 0.0122351, 0.0593666, 0.997354, 5, 1, 0.0411981, 0.0120884, 0.0587824, 0.997347, 5.03333, 1, 0.0421497, 0.0119559, 0.0582543, 0.99734, 5.13333, 1, 0.044478, 0.0116316, 0.0569626, 0.997317, 5.2, 1, 0.045609, 0.011474, 0.0563348, 0.997304, 5.76667, 1, 0.0460637, 0.0114106, 0.0560825, 0.997298)
+tracks/35/type = "value"
+tracks/35/imported = false
+tracks/35/enabled = true
+tracks/35/path = NodePath("../fall:playing")
+tracks/35/interp = 1
+tracks/35/loop_wrap = true
+tracks/35/keys = {
+"times": PackedFloat32Array(3, 4.06667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/36/type = "value"
+tracks/36/imported = false
+tracks/36/enabled = true
+tracks/36/path = NodePath("../fall:volume_db")
+tracks/36/interp = 1
+tracks/36/loop_wrap = true
+tracks/36/keys = {
+"times": PackedFloat32Array(4.13333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_v3raj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../fall:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../fall:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [12.0]
+}
 
 [sub_resource type="Animation" id="Animation_35tej"]
 resource_name = "Sweep Fall"
@@ -2280,6 +2362,7 @@ tracks/34/keys = PackedFloat32Array(0, 1, 0.448056, -0.0468294, -0.201057, 0.869
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v53el"]
 _data = {
 &"Death": SubResource("Animation_hack3"),
+&"RESET": SubResource("Animation_v3raj"),
 &"Sweep Fall": SubResource("Animation_35tej"),
 &"getPunched": SubResource("Animation_8ntfn")
 }
@@ -2288,15 +2371,11 @@ _data = {
 background_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2gv66"]
-shader = ExtResource("19_vnci1")
+shader = ExtResource("18_mjbsb")
+shader_parameter/SCREEN_WIDTH = 1920.0
 shader_parameter/RED_COMPONENT = 16.0
 shader_parameter/GREEN_COMPONENT = 16.0
 shader_parameter/BLUE_COMPONENT = 16.0
-shader_parameter/SCREEN_WIDTH = 320.0
-shader_parameter/_ScanLineJitter = 0.25
-shader_parameter/_VerticalJump = 0.01
-shader_parameter/_HorizontalShake = 0.0
-shader_parameter/_ColorDrift = 0.02
 
 [sub_resource type="LabelSettings" id="LabelSettings_mjbsb"]
 font = ExtResource("18_0bep1")
@@ -2593,10 +2672,15 @@ libraries = {
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grandpa"]
 
-[node name="Kid" type="Node3D" parent="." node_paths=PackedStringArray("grandpa")]
+[node name="punch" type="AudioStreamPlayer2D" parent="Grandpa"]
+stream = ExtResource("16_8mmhx")
+volume_db = 5.0
+
+[node name="Kid" type="Node3D" parent="." node_paths=PackedStringArray("grandpa", "crySound")]
 transform = Transform3D(-3.49691e-08, 0, -0.8, 0, 0.8, 0, 0.8, 0, -3.49691e-08, -0.768374, 0.0739248, -1.68736)
 script = ExtResource("16_mjbsb")
 grandpa = NodePath("../Grandpa")
+crySound = NodePath("crySound")
 
 [node name="Model_And_Animations" parent="Kid" instance=ExtResource("14_ka1qv")]
 
@@ -2668,6 +2752,14 @@ surface_material_override/0 = SubResource("StandardMaterial3D_yrl7y")
 libraries = {
 &"": SubResource("AnimationLibrary_v53el")
 }
+
+[node name="crySound" type="AudioStreamPlayer2D" parent="Kid"]
+stream = ExtResource("19_iofwl")
+volume_db = 10.0
+
+[node name="fall" type="AudioStreamPlayer2D" parent="Kid"]
+stream = ExtResource("20_ha5tu")
+volume_db = 12.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qc6q0")
@@ -2901,7 +2993,7 @@ offset_right = 136.0
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "So you decied to end it all"
+text = "So you decide to end it all"
 label_settings = SubResource("LabelSettings_o7ji8")
 horizontal_alignment = 1
 

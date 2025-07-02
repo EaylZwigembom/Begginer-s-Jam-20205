@@ -1,6 +1,8 @@
 class_name PlayerScript
 extends CharacterBody3D
 
+var canLand
+@export var glitchSound : AudioStreamPlayer2D
 @onready var killedGrandpa = false
 @export var mainShader : ColorRect
 @export var mrTime_growl : AudioStreamPlayer2D
@@ -21,7 +23,6 @@ var yaw := deg_to_rad(90.0)  # Starting rotation
 @export var JUMP_VELOCITY = 4.5
 @export var isFreeMovement : bool
 @export var walkSound : AudioStreamPlayer2D
-@export var jumpSound : AudioStreamPlayer2D
 @export var landSound : AudioStreamPlayer2D
 @onready var transformBasis
 
@@ -53,6 +54,7 @@ var target_gun = null
 
 @export var blackScreen : ColorRect
 @export var monolog : Label
+@export var shotgunLoad : AudioStreamPlayer2D
 
 func _ready():
 	previous_position = global_transform.origin
@@ -87,6 +89,11 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		canLand = true
+		
+	if is_on_floor() and canLand:
+		canLand = false
+		landSound.play()
 		
 	# Handle jump.
 	if canWalk:
@@ -122,11 +129,11 @@ func _physics_process(delta: float) -> void:
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				velocity.z = move_toward(velocity.z, 0, SPEED)
-			
 			if global_transform.origin.distance_to(previous_position) < 0.001 and input_dir != Vector2.ZERO:
 				walkSound.stop()
+
+			previous_position = global_transform.origin
 			move_and_slide()
-		previous_position = global_transform.origin
 		
 		CheckDistance()
 	
@@ -147,6 +154,8 @@ func _physics_process(delta: float) -> void:
 			
 			elif collider.name == "youngGrandpa" and not killedGrandpa:
 				if Input.is_action_just_pressed("Shoot") and canShoot:
+					if glitchSound.playing:
+						glitchSound.stop()
 					killedGrandpa = true
 					canWalk = false
 					canShoot = false
@@ -189,6 +198,7 @@ func pick_up_shotgun():
 	objectiveOne.label_settings.font_color = Color.GREEN
 	muzzle_flash_light.visible = true
 	shotgun_prefab.visible = false
+	shotgunLoad.play()
 	shotgun.visible = true 
 	pickup_text.visible = false
 	can_pickup = false
@@ -208,7 +218,20 @@ func BeatTimmy():
 		get_tree().change_scene_to_file("res://Scenes/KickGrandchildAss.tscn")
 		
 func StartChase() -> void:
-	print("grrgr")
+	walkSound.stop()
+	canLook = false
+	canWalk = false
+	startChase = false  # Prevent re-entry
+	mrTime_growl.play()
+	await time(3.0)
+	animation_player.play("lookBack")
+	await animation_player.animation_finished
+	# Play animation and wait for it to finish
+	animation_player.play("LookForward")
+	await animation_player.animation_finished
+	canLook = true
+	canWalk = true
+	SPEED = 7.5
 
 			
 func Jumpscare():
@@ -235,45 +258,45 @@ func Jumpscare():
 
 func CheckDistance():
 	if get_tree().current_scene.scene_file_path == "res://Scenes/OldNeighborhood.tscn":
+		var target
 		if not picked_up_shotgun:
-			var distance = global_position.distance_to(shotgun_prefab.global_position)
-			var raw_strength = clamp(1 - (distance / 70.0), 0.0, 2.0)
-			var glitch_strength = (1 - pow(1 - raw_strength, 2.5))
-			glitch_strength = min(glitch_strength, 0.45)
-
-			# ---- NEW: Adjust based on player rotation (3D) ----
-			var to_target = (shotgun_prefab.global_position - global_position).normalized()
-			var to_target_2d = Vector2(to_target.x, to_target.z).normalized()
-			var facing_dir = Vector2(-sin(rotation.y), -cos(rotation.y)).normalized()
-			var angle_diff = facing_dir.angle_to(to_target_2d)
-			var angle_factor = clamp(1.0 - (abs(angle_diff) / PI), 0.0, 1.0)
-			glitch_strength *= angle_factor
-			# ---------------------------------------------------
-
-			var mat := mainShader.material
-			if mat and mat is ShaderMaterial:
-				mat.set_shader_parameter("_ScanLineJitter", glitch_strength)
-				mat.set_shader_parameter("_ColorDrift", glitch_strength * 0.05)
-				
+			target = shotgun_prefab
 		elif not killedGrandpa:
-			var distance = global_position.distance_to(youngGrandpa.global_position)
-			var raw_strength = clamp(1 - (distance / 70.0), 0.0, 2.0)
-			var glitch_strength = (1 - pow(1 - raw_strength, 2.5))
-			glitch_strength = min(glitch_strength, 0.45)
+			target = youngGrandpa
+		else:
+			glitchSound.volume_db = -80  # Mute when no glitch source
+			return
 
-			# ---- NEW: Adjust based on player rotation (3D) ----
-			var to_target = (youngGrandpa.global_position - global_position).normalized()
-			var to_target_2d = Vector2(to_target.x, to_target.z).normalized()
-			var facing_dir = Vector2(-sin(rotation.y), -cos(rotation.y)).normalized()
-			var angle_diff = facing_dir.angle_to(to_target_2d)
-			var angle_factor = clamp(1.0 - (abs(angle_diff) / PI), 0.0, 1.0)
-			glitch_strength *= angle_factor
-			# ---------------------------------------------------
+		# --- Distance and strength ---
+		var distance = global_position.distance_to(target.global_position)
+		var raw_strength = clamp(1 - (distance / 70.0), 0.0, 2.0)
+		var glitch_strength = (1 - pow(1 - raw_strength, 2.5))
+		glitch_strength = min(glitch_strength, 0.45)
 
-			var mat := mainShader.material
-			if mat and mat is ShaderMaterial:
-				mat.set_shader_parameter("_ScanLineJitter", glitch_strength)
-				mat.set_shader_parameter("_ColorDrift", glitch_strength * 0.05)
+		# --- Angle adjustment ---
+		var to_target = (target.global_position - global_position).normalized()
+		var to_target_2d = Vector2(to_target.x, to_target.z).normalized()
+		var facing_dir = Vector2(-sin(rotation.y), -cos(rotation.y)).normalized()
+		var angle_diff = facing_dir.angle_to(to_target_2d)
+		var angle_factor = clamp(1.0 - (abs(angle_diff) / PI), 0.0, 1.0)
+		glitch_strength *= angle_factor
+
+		# --- Shader update ---
+		var mat := mainShader.material
+		if mat and mat is ShaderMaterial:
+			mat.set_shader_parameter("_ScanLineJitter", glitch_strength)
+			mat.set_shader_parameter("_ColorDrift", glitch_strength * 0.05)
+
+		# --- Sound volume update ---
+		if glitchSound:
+			var volume = lerp(-35.0, 0.0, glitch_strength * 2.2)  # Adjust range as needed
+			glitchSound.volume_db = clamp(volume, -80.0, 3.0)
+			if not glitchSound.playing:
+				glitchSound.play()
+	else:
+		if glitchSound:
+			glitchSound.volume_db = -80
+
 
 		
 func _unhandled_input(event):

@@ -2289,10 +2289,14 @@ background_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2gv66"]
 shader = ExtResource("19_vnci1")
-shader_parameter/SCREEN_WIDTH = 320.0
 shader_parameter/RED_COMPONENT = 16.0
 shader_parameter/GREEN_COMPONENT = 16.0
 shader_parameter/BLUE_COMPONENT = 16.0
+shader_parameter/SCREEN_WIDTH = 320.0
+shader_parameter/_ScanLineJitter = 0.25
+shader_parameter/_VerticalJump = 0.01
+shader_parameter/_HorizontalShake = 0.0
+shader_parameter/_ColorDrift = 0.02
 
 [sub_resource type="LabelSettings" id="LabelSettings_mjbsb"]
 font = ExtResource("18_0bep1")
@@ -2795,7 +2799,7 @@ offset_right = 132.5
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Your life is meaningles"
+text = "Your life is meaningless"
 label_settings = SubResource("LabelSettings_mjbsb")
 horizontal_alignment = 1
 

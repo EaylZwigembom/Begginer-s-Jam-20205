@@ -699,10 +699,14 @@ font_size = 65
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kqm77"]
 shader = ExtResource("19_76svt")
-shader_parameter/SCREEN_WIDTH = 320.0
 shader_parameter/RED_COMPONENT = 10.0
 shader_parameter/GREEN_COMPONENT = 10.0
 shader_parameter/BLUE_COMPONENT = 10.0
+shader_parameter/SCREEN_WIDTH = 320.0
+shader_parameter/_ScanLineJitter = 0.25
+shader_parameter/_VerticalJump = 0.01
+shader_parameter/_HorizontalShake = 0.0
+shader_parameter/_ColorDrift = 0.02
 
 [sub_resource type="Animation" id="Animation_snj4n"]
 resource_name = "fade"

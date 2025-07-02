@@ -1,6 +1,9 @@
 class_name PlayerScript
 extends CharacterBody3D
 
+@onready var killedGrandpa = false
+@export var mainShader : ColorRect
+@export var mrTime_growl : AudioStreamPlayer2D
 @export var cheatMode : bool
 @export var isBeatingNow : bool
 @export var fadeAnimation : AnimationPlayer
@@ -10,6 +13,8 @@ extends CharacterBody3D
 @export var objectivesPanel : ColorRect
 @export var monologLabels : Array[Label]
 
+var deltaTime
+var previous_position
 var yaw := deg_to_rad(90.0)  # Starting rotation
 @export var canWalk : bool
 @export var SPEED : float
@@ -50,6 +55,7 @@ var target_gun = null
 @export var monolog : Label
 
 func _ready():
+	previous_position = global_transform.origin
 	yaw = rotation.y  # Sync with scene setup
 	transformBasis = transform.basis
 	if cheatMode:
@@ -72,6 +78,11 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
+	deltaTime = delta
+	
+	if not canWalk:
+		walkSound.stop()
+		
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -87,30 +98,38 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 		var direction;
-		if isFreeMovement:
-			if is_on_floor() and input_dir != Vector2.ZERO:
-				if not walkSound.playing:
-					walkSound.play()
-			else:
-				if walkSound.playing:
-					walkSound.stop()
+		if canWalk:
+			if isFreeMovement:
+				if is_on_floor() and input_dir != Vector2.ZERO:
+					if not walkSound.playing:
+						walkSound.play()
+				else:
+					if walkSound.playing:
+						walkSound.stop()
 
-			direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-		else:
-			if input_dir.y < 0:
-				if not walkSound.playing:
-					walkSound.play()
-				direction = (transformBasis * Vector3(0, 0, input_dir.y)).normalized()
+				direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 			else:
-				if walkSound.playing:
-					walkSound.stop()
-		if direction:
-			velocity.x = direction.x * SPEED
-			velocity.z = direction.z * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			velocity.z = move_toward(velocity.z, 0, SPEED)
-		move_and_slide()
+				if input_dir.y < 0 and is_on_floor():
+					if not walkSound.playing:
+						walkSound.play()
+				else:
+					if walkSound.playing:
+						walkSound.stop()
+				direction = (transformBasis * Vector3(0, 0, input_dir.y)).normalized()
+			if direction:
+				velocity.x = direction.x * SPEED
+				velocity.z = direction.z * SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+				velocity.z = move_toward(velocity.z, 0, SPEED)
+			
+			if global_transform.origin.distance_to(previous_position) < 0.001 and input_dir != Vector2.ZERO:
+				walkSound.stop()
+			move_and_slide()
+		previous_position = global_transform.origin
+		
+		CheckDistance()
+	
 	if jumpscare:
 		Jumpscare()
 	if startChase:
@@ -121,13 +140,16 @@ func _physics_process(delta: float) -> void:
 			var collider = raycast.get_collider()
 		
 			# Check if the object is the shotgun (by name or group)
-			if collider.name == "Shotgun":  
+			if collider.name == "Shotgun" and not picked_up_shotgun:  
 				pickup_text.visible = true
 				can_pickup = true
 				target_gun = collider
 			
-			elif collider.name == "youngGrandpa":
+			elif collider.name == "youngGrandpa" and not killedGrandpa:
 				if Input.is_action_just_pressed("Shoot") and canShoot:
+					killedGrandpa = true
+					canWalk = false
+					canShoot = false
 					objectiveTwo.label_settings.font_color = Color.GREEN
 					shotgun_sound.play()
 					muzzle_flash_light.visible = true
@@ -185,19 +207,9 @@ func BeatTimmy():
 		await time(2)
 		get_tree().change_scene_to_file("res://Scenes/KickGrandchildAss.tscn")
 		
-func StartChase():
-		walkSound.stop()
-		canLook = false
-		canWalk = false
-		animation_player.play("lookBack")
-		await animation_player.animation_finished
-		#chaseAmbience.play()
-		animation_player.play("LookForward")
-		if animation_player.animation_finished:
-			canWalk = true
-			canLook = true
-			startChase = false
-			SPEED = 7.5
+func StartChase() -> void:
+	print("grrgr")
+
 			
 func Jumpscare():
 		walkSound.stop()
@@ -220,18 +232,59 @@ func Jumpscare():
 		await time(1.5)
 		get_tree().change_scene_to_file("res://Scenes/OldNeighborhood.tscn")
 		
+
+func CheckDistance():
+	if get_tree().current_scene.scene_file_path == "res://Scenes/OldNeighborhood.tscn":
+		if not picked_up_shotgun:
+			var distance = global_position.distance_to(shotgun_prefab.global_position)
+			var raw_strength = clamp(1 - (distance / 70.0), 0.0, 2.0)
+			var glitch_strength = (1 - pow(1 - raw_strength, 2.5))
+			glitch_strength = min(glitch_strength, 0.45)
+
+			# ---- NEW: Adjust based on player rotation (3D) ----
+			var to_target = (shotgun_prefab.global_position - global_position).normalized()
+			var to_target_2d = Vector2(to_target.x, to_target.z).normalized()
+			var facing_dir = Vector2(-sin(rotation.y), -cos(rotation.y)).normalized()
+			var angle_diff = facing_dir.angle_to(to_target_2d)
+			var angle_factor = clamp(1.0 - (abs(angle_diff) / PI), 0.0, 1.0)
+			glitch_strength *= angle_factor
+			# ---------------------------------------------------
+
+			var mat := mainShader.material
+			if mat and mat is ShaderMaterial:
+				mat.set_shader_parameter("_ScanLineJitter", glitch_strength)
+				mat.set_shader_parameter("_ColorDrift", glitch_strength * 0.05)
+				
+		elif not killedGrandpa:
+			var distance = global_position.distance_to(youngGrandpa.global_position)
+			var raw_strength = clamp(1 - (distance / 70.0), 0.0, 2.0)
+			var glitch_strength = (1 - pow(1 - raw_strength, 2.5))
+			glitch_strength = min(glitch_strength, 0.45)
+
+			# ---- NEW: Adjust based on player rotation (3D) ----
+			var to_target = (youngGrandpa.global_position - global_position).normalized()
+			var to_target_2d = Vector2(to_target.x, to_target.z).normalized()
+			var facing_dir = Vector2(-sin(rotation.y), -cos(rotation.y)).normalized()
+			var angle_diff = facing_dir.angle_to(to_target_2d)
+			var angle_factor = clamp(1.0 - (abs(angle_diff) / PI), 0.0, 1.0)
+			glitch_strength *= angle_factor
+			# ---------------------------------------------------
+
+			var mat := mainShader.material
+			if mat and mat is ShaderMaterial:
+				mat.set_shader_parameter("_ScanLineJitter", glitch_strength)
+				mat.set_shader_parameter("_ColorDrift", glitch_strength * 0.05)
+
+		
 func _unhandled_input(event):
 	if canLook:
 		if event is InputEventMouseMotion:
 			if isFreeMovement:
 				yaw -= event.relative.x * mouseSensitivity
-			else:
-				yaw -= event.relative.x * mouseSensitivity
-				yaw = clamp(yaw, deg_to_rad(0), deg_to_rad(180))
 				
-			rotation.y = yaw
-			%Camera3D.rotate_x(-event.relative.y * mouseSensitivity)
-			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+				rotation.y = yaw
+				%Camera3D.rotate_x(-event.relative.y * mouseSensitivity)
+				%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 			
 func time(seconds: float) -> void:
 	if !is_inside_tree():

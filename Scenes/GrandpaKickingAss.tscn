@@ -2293,10 +2293,14 @@ font_size = 30
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2gv66"]
 shader = ExtResource("19_krlll")
-shader_parameter/SCREEN_WIDTH = 320.0
 shader_parameter/RED_COMPONENT = 16.0
 shader_parameter/GREEN_COMPONENT = 16.0
 shader_parameter/BLUE_COMPONENT = 16.0
+shader_parameter/SCREEN_WIDTH = 320.0
+shader_parameter/_ScanLineJitter = 0.25
+shader_parameter/_VerticalJump = 0.01
+shader_parameter/_HorizontalShake = 0.0
+shader_parameter/_ColorDrift = 0.02
 
 [node name="GrandpaKickingAss" type="Node3D"]
 

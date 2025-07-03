@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://cx4rm61sdkphn"]
+[gd_scene load_steps=77 format=4 uid="uid://cx4rm61sdkphn"]
 
 [ext_resource type="Texture2D" uid="uid://bxchdjpnx30ql" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house_0.png" id="1_kqm77"]
 [ext_resource type="Script" uid="uid://cyu2v45427ucv" path="res://Scripts/main_menu.gd" id="1_snj4n"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bqmsddjpvm0k" path="res://Assets/Models/Car/psx_low-poly_car_-_renault.glb" id="9_wofhc"]
 [ext_resource type="AudioStream" uid="uid://bemg4n0be1j3g" path="res://Assets/SFX/clickSound.wav" id="11_yij4q"]
 [ext_resource type="AudioStream" uid="uid://62u8ynqmd3fi" path="res://Assets/SFX/hoverSound.wav" id="12_o8ral"]
+[ext_resource type="AudioStream" uid="uid://ykyogr8mglrl" path="res://Assets/Music/mainMenu.wav" id="13_o8ral"]
 [ext_resource type="Shader" uid="uid://canr2rgsupbku" path="res://Assets/Shaders/posterization.gdshader" id="19_76svt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5wwm"]
@@ -688,6 +689,10 @@ background_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
 background_energy_multiplier = 3.71
 sky = SubResource("Sky_kqm77")
 
+[sub_resource type="LabelSettings" id="LabelSettings_snj4n"]
+font = ExtResource("7_qmf6k")
+font_size = 65
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snj4n"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_color = Color(0.8, 0.8, 0.8, 0)
@@ -696,9 +701,33 @@ border_color = Color(0.8, 0.8, 0.8, 0)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_color = Color(0.8, 0.8, 0.8, 0)
 
-[sub_resource type="LabelSettings" id="LabelSettings_snj4n"]
+[sub_resource type="LabelSettings" id="LabelSettings_j8oe5"]
 font = ExtResource("7_qmf6k")
-font_size = 65
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8ral"]
+bg_color = Color(0.890406, 0.887324, 0.867263, 1)
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urxp8"]
+bg_color = Color(0.278431, 0.886275, 0.247059, 1)
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="Theme" id="Theme_o8ral"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j8oe5"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0gbn6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kqm77"]
 shader = ExtResource("19_76svt")
@@ -789,7 +818,7 @@ _data = {
 &"unFade": SubResource("Animation_wofhc")
 }
 
-[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("clickSound", "hoverSound", "fade", "unFade", "screenFader", "blackScreen", "warning", "warningAnim")]
+[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("clickSound", "hoverSound", "fade", "unFade", "screenFader", "blackScreen", "warning", "warningAnim", "mainMenuAmbience", "SettingsPage", "MainPage", "volumeSlider", "qualityDropdown")]
 script = ExtResource("1_snj4n")
 clickSound = NodePath("clickSound")
 hoverSound = NodePath("hoverSound")
@@ -799,6 +828,11 @@ screenFader = NodePath("screenFader")
 blackScreen = NodePath("CanvasLayer/blackScreen")
 warning = NodePath("CanvasLayer/warning")
 warningAnim = NodePath("CanvasLayer/warningAnim")
+mainMenuAmbience = NodePath("mainMenuAmbience")
+SettingsPage = NodePath("Settings")
+MainPage = NodePath("Main")
+volumeSlider = NodePath("Settings/volumeSlider")
+qualityDropdown = NodePath("Settings/quallityDropdown")
 
 [node name="House" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
@@ -945,22 +979,38 @@ skeleton = NodePath("")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qc6q0")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="Main" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="Main"]
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 497.0
+offset_bottom = 91.0
+text = "The Unbirth"
+label_settings = SubResource("LabelSettings_snj4n")
+
+[node name="CenterContainer" type="CenterContainer" parent="Main"]
+layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = -94.0
-offset_top = -172.0
+offset_top = 132.0
 offset_right = 278.0
-offset_bottom = -4.0
+offset_bottom = 300.0
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 9
 alignment = 1
 
-[node name="startGame" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="startGame" type="Button" parent="Main/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_qmf6k")
 theme_override_font_sizes/font_size = 30
@@ -973,7 +1023,20 @@ action_mode = 0
 text = "START"
 flat = true
 
-[node name="quitGame" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="settings" type="Button" parent="Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_qmf6k")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_snj4n")
+action_mode = 0
+text = "SETTINGS"
+flat = true
+
+[node name="quitGame" type="Button" parent="Main/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_qmf6k")
 theme_override_font_sizes/font_size = 30
@@ -986,15 +1049,94 @@ action_mode = 0
 text = "QUIT"
 flat = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Settings" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Title" type="Label" parent="CanvasLayer"]
+[node name="Title" type="Label" parent="Settings"]
 offset_left = 13.0
 offset_top = 12.0
-offset_right = 385.0
-offset_bottom = 86.0
-text = "The Unbirth"
+offset_right = 497.0
+offset_bottom = 91.0
+text = "SETTINGS"
 label_settings = SubResource("LabelSettings_snj4n")
+
+[node name="VOLUME" type="Label" parent="Settings"]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 213.0
+offset_right = 178.0
+offset_bottom = 250.0
+text = "VOLUME"
+label_settings = SubResource("LabelSettings_j8oe5")
+
+[node name="QUALLITY" type="Label" parent="Settings"]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 270.0
+offset_right = 198.0
+offset_bottom = 307.0
+text = "QUALITY"
+label_settings = SubResource("LabelSettings_j8oe5")
+
+[node name="exitSettings" type="Button" parent="Settings"]
+layout_mode = 2
+offset_left = 53.0
+offset_top = 323.0
+offset_right = 142.0
+offset_bottom = 368.0
+theme_override_fonts/font = ExtResource("7_qmf6k")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_snj4n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wofhc")
+action_mode = 0
+text = "EXIT"
+flat = true
+
+[node name="volumeSlider" type="HSlider" parent="Settings"]
+custom_minimum_size = Vector2(400, 12)
+layout_mode = 0
+offset_left = 192.0
+offset_top = 223.0
+offset_right = 592.0
+offset_bottom = 239.0
+theme_override_constants/center_grabber = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_o8ral")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_urxp8")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_urxp8")
+max_value = 1.0
+step = 0.01
+
+[node name="quallityDropdown" type="OptionButton" parent="Settings"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 274.0
+offset_right = 303.0
+offset_bottom = 305.0
+theme = SubResource("Theme_o8ral")
+theme_override_fonts/font = ExtResource("7_qmf6k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_j8oe5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0gbn6")
+flat = true
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "LOW"
+popup/item_0/id = 0
+popup/item_1/text = "MEDIUM"
+popup/item_1/id = 1
+popup/item_2/text = "HIGH"
+popup/item_2/id = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="blackScreen" type="ColorRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
@@ -1074,7 +1216,16 @@ volume_db = 15.0
 stream = ExtResource("12_o8ral")
 volume_db = 15.0
 
-[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_mouse_entered"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_pressed"]
-[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_mouse_entered"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_pressed"]
+[node name="mainMenuAmbience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_o8ral")
+
+[connection signal="mouse_entered" from="Main/CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_mouse_entered"]
+[connection signal="pressed" from="Main/CenterContainer/VBoxContainer/startGame" to="." method="_on_start_game_pressed"]
+[connection signal="mouse_entered" from="Main/CenterContainer/VBoxContainer/settings" to="." method="_on_start_game_mouse_entered"]
+[connection signal="pressed" from="Main/CenterContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="mouse_entered" from="Main/CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_mouse_entered"]
+[connection signal="pressed" from="Main/CenterContainer/VBoxContainer/quitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="mouse_entered" from="Settings/exitSettings" to="." method="_on_quit_game_mouse_entered"]
+[connection signal="pressed" from="Settings/exitSettings" to="." method="_on_save_settings_pressed"]
+[connection signal="value_changed" from="Settings/volumeSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="item_selected" from="Settings/quallityDropdown" to="." method="_on_quallity_dropdown_item_selected"]

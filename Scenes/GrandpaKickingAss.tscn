@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bptlcgq6b2rfe"]
+[gd_scene load_steps=57 format=3 uid="uid://bptlcgq6b2rfe"]
 
 [ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_hl6dm"]
 [ext_resource type="Material" uid="uid://j2flvv7on2l0" path="res://Assets/Materials/plank_mat.tres" id="2_krlll"]
@@ -22,6 +22,10 @@
 [ext_resource type="AudioStream" uid="uid://c51vm2etfbrna" path="res://Assets/SFX/kid_cry.mp3" id="19_g1423"]
 [ext_resource type="Shader" uid="uid://cyhoqugc35u70" path="res://Assets/Shaders/posterize.gdshader" id="19_krlll"]
 [ext_resource type="AudioStream" uid="uid://8slugpj7hykg" path="res://Assets/SFX/fall.wav" id="20_0l3v8"]
+[ext_resource type="Script" uid="uid://53v4rwma15bt" path="res://Scripts/pauseGame.gd" id="23_ei16y"]
+[ext_resource type="FontFile" uid="uid://43uxqkamp0va" path="res://Assets/Fonts/fake receipt.otf" id="24_makdd"]
+[ext_resource type="AudioStream" uid="uid://bemg4n0be1j3g" path="res://Assets/SFX/clickSound.wav" id="25_y0yvg"]
+[ext_resource type="AudioStream" uid="uid://62u8ynqmd3fi" path="res://Assets/SFX/hoverSound.wav" id="26_5trps"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]
 
@@ -2337,6 +2341,46 @@ shader_parameter/RED_COMPONENT = 16.0
 shader_parameter/GREEN_COMPONENT = 16.0
 shader_parameter/BLUE_COMPONENT = 16.0
 
+[sub_resource type="LabelSettings" id="LabelSettings_wrme7"]
+font = ExtResource("24_makdd")
+font_size = 65
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gbvgp"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi0jq"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ql5as"]
+font = ExtResource("24_makdd")
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eafyf"]
+bg_color = Color(0.890406, 0.887324, 0.867263, 1)
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwl2x"]
+bg_color = Color(0.278431, 0.886275, 0.247059, 1)
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="Theme" id="Theme_0vm8b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ytrrf"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qduow"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
 [node name="GrandpaKickingAss" type="Node3D"]
 
 [node name="House" parent="." instance=ExtResource("1_hl6dm")]
@@ -2752,6 +2796,205 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="pause_menu" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "mainPage", "settingsPage", "hoverSound", "clickSound", "volumeSlider", "qualityDropdown")]
+process_mode = 3
+visible = false
+script = ExtResource("23_ei16y")
+pause_menu = NodePath(".")
+mainPage = NodePath("Main")
+settingsPage = NodePath("Settings")
+hoverSound = NodePath("hoverSound")
+clickSound = NodePath("clickSound")
+volumeSlider = NodePath("Settings/volumeSlider")
+qualityDropdown = NodePath("Settings/quallityDropdown")
+
+[node name="bg" type="ColorRect" parent="pause_menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.270588, 0.270588, 0.270588, 0.380392)
+
+[node name="Main" type="Control" parent="pause_menu"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="pause_menu/Main"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 497.0
+offset_bottom = 91.0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_wrme7")
+
+[node name="CenterContainer" type="CenterContainer" parent="pause_menu/Main"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 132.0
+offset_right = 312.0
+offset_bottom = 300.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu/Main/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="resumeGame" type="Button" parent="pause_menu/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_makdd")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gbvgp")
+action_mode = 0
+text = "RESUME"
+flat = true
+
+[node name="settings" type="Button" parent="pause_menu/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_makdd")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gbvgp")
+action_mode = 0
+text = "SETTINGS"
+flat = true
+
+[node name="goToMenu" type="Button" parent="pause_menu/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("24_makdd")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wi0jq")
+action_mode = 0
+text = "GO TO MENU"
+flat = true
+
+[node name="Settings" type="Control" parent="pause_menu"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="pause_menu/Settings"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 497.0
+offset_bottom = 91.0
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_wrme7")
+
+[node name="VOLUME" type="Label" parent="pause_menu/Settings"]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 213.0
+offset_right = 178.0
+offset_bottom = 250.0
+text = "VOLUME"
+label_settings = SubResource("LabelSettings_ql5as")
+
+[node name="QUALLITY" type="Label" parent="pause_menu/Settings"]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 270.0
+offset_right = 198.0
+offset_bottom = 307.0
+text = "QUALITY"
+label_settings = SubResource("LabelSettings_ql5as")
+
+[node name="exitSettings" type="Button" parent="pause_menu/Settings"]
+layout_mode = 2
+offset_left = 53.0
+offset_top = 323.0
+offset_right = 142.0
+offset_bottom = 368.0
+theme_override_fonts/font = ExtResource("24_makdd")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_gbvgp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wi0jq")
+action_mode = 0
+text = "EXIT"
+flat = true
+
+[node name="volumeSlider" type="HSlider" parent="pause_menu/Settings"]
+custom_minimum_size = Vector2(400, 12)
+layout_mode = 0
+offset_left = 192.0
+offset_top = 223.0
+offset_right = 592.0
+offset_bottom = 239.0
+theme_override_constants/center_grabber = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_eafyf")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_qwl2x")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_qwl2x")
+max_value = 1.0
+step = 0.01
+
+[node name="quallityDropdown" type="OptionButton" parent="pause_menu/Settings"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 274.0
+offset_right = 303.0
+offset_bottom = 305.0
+theme = SubResource("Theme_0vm8b")
+theme_override_fonts/font = ExtResource("24_makdd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ytrrf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qduow")
+flat = true
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "LOW"
+popup/item_0/id = 0
+popup/item_1/text = "MEDIUM"
+popup/item_1/id = 1
+popup/item_2/text = "HIGH"
+popup/item_2/id = 2
+
+[node name="clickSound" type="AudioStreamPlayer2D" parent="pause_menu"]
+stream = ExtResource("25_y0yvg")
+volume_db = 15.0
+
+[node name="hoverSound" type="AudioStreamPlayer2D" parent="pause_menu"]
+stream = ExtResource("26_5trps")
+volume_db = 15.0
+
+[connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/resumeGame" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/resumeGame" to="pause_menu" method="_on_resume_game_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/settings" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/settings" to="pause_menu" method="_on_settings_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/goToMenu" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/goToMenu" to="pause_menu" method="_on_go_to_menu_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Settings/exitSettings" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Settings/exitSettings" to="pause_menu" method="_on_exit_settings_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Settings/volumeSlider" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="value_changed" from="pause_menu/Settings/volumeSlider" to="pause_menu" method="_on_volume_slider_value_changed"]
+[connection signal="item_selected" from="pause_menu/Settings/quallityDropdown" to="pause_menu" method="_on_quallity_dropdown_item_selected"]
+[connection signal="mouse_entered" from="pause_menu/Settings/quallityDropdown" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
 
 [editable path="House"]
 [editable path="House/Furniture"]

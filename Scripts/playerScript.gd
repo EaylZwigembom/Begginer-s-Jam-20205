@@ -159,7 +159,7 @@ func _physics_process(delta: float) -> void:
 					killedGrandpa = true
 					canWalk = false
 					canShoot = false
-					objectiveTwo.label_settings.font_color = Color.GREEN
+					objectiveTwo.label_settings.font_color = Color.DARK_RED
 					shotgun_sound.play()
 					muzzle_flash_light.visible = true
 					muzzle_flash_animation.play("flash")
@@ -195,7 +195,7 @@ func _physics_process(delta: float) -> void:
 func pick_up_shotgun():
 	canShoot = true
 	picked_up_shotgun = true
-	objectiveOne.label_settings.font_color = Color.GREEN
+	objectiveOne.label_settings.font_color = Color.DARK_RED
 	muzzle_flash_light.visible = true
 	shotgun_prefab.visible = false
 	shotgunLoad.play()
@@ -207,7 +207,7 @@ func pick_up_shotgun():
 
 func BeatTimmy():
 	if fadeScren != null and fadeAnimation != null:
-		objectiveOne.label_settings.font_color = Color.GREEN
+		objectiveOne.label_settings.font_color = Color.DARK_RED
 		isBeatingNow = true
 		pickup_text.visible = false
 		fadeScren.visible = true

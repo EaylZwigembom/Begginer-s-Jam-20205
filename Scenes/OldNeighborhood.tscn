@@ -1,6 +1,7 @@
-[gd_scene load_steps=1011 format=4 uid="uid://dmduv1oocls64"]
+[gd_scene load_steps=1024 format=4 uid="uid://dmduv1oocls64"]
 
 [ext_resource type="Script" uid="uid://csasi5d7x3cwp" path="res://Scripts/playerScript.gd" id="1_gvg2h"]
+[ext_resource type="Script" uid="uid://53v4rwma15bt" path="res://Scripts/pauseGame.gd" id="1_lrx7s"]
 [ext_resource type="Texture2D" uid="uid://de27vih3nd0xn" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_1.jpg" id="2_gphsh"]
 [ext_resource type="Texture2D" uid="uid://ddhsa4mmxb7xl" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_2.jpg" id="3_6oxol"]
 [ext_resource type="Texture2D" uid="uid://b3de4wnkjve2y" path="res://Assets/Models/Old Neighborhood/Neighborhood/bus_stop_3.jpg" id="4_l6jhf"]
@@ -42,7 +43,10 @@
 [ext_resource type="Texture2D" uid="uid://ctfuripha77yv" path="res://Assets/Models/More than 2 scences/old-man-psx/Old man.png" id="35_ti3vj"]
 [ext_resource type="Shader" uid="uid://bflhvc1pfs1gt" path="res://Assets/Shaders/glitch.gdshader" id="36_w04a7"]
 [ext_resource type="FontFile" uid="uid://43uxqkamp0va" path="res://Assets/Fonts/fake receipt.otf" id="37_cqn3i"]
+[ext_resource type="AudioStream" uid="uid://bemg4n0be1j3g" path="res://Assets/SFX/clickSound.wav" id="39_74xsy"]
 [ext_resource type="Script" uid="uid://b83y8s7w3ema3" path="res://Scripts/mr_time.gd" id="39_g7icp"]
+[ext_resource type="AudioStream" uid="uid://62u8ynqmd3fi" path="res://Assets/SFX/hoverSound.wav" id="40_6hgc4"]
+[ext_resource type="Texture2D" uid="uid://dyjk7k7c21qyj" path="res://objectivePanel1.png" id="41_pfggx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3icqa"]
 
@@ -13140,6 +13144,46 @@ font = ExtResource("37_cqn3i")
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_rjxcw"]
+font = ExtResource("37_cqn3i")
+font_size = 65
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ih5kd"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5fsa8"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_05yq0"]
+font = ExtResource("37_cqn3i")
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijjnx"]
+bg_color = Color(0.890406, 0.887324, 0.867263, 1)
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_farr3"]
+bg_color = Color(0.278431, 0.886275, 0.247059, 1)
+expand_margin_top = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="Theme" id="Theme_2og2g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryqjx"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xf1h"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j8u77"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g7icp"]
@@ -15419,14 +15463,13 @@ shadow_enabled = true
 shadow_opacity = 0.2
 sky_mode = 1
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("glitchSound", "mainShader", "objectiveOne", "objectiveTwo", "objectivesPanel", "monologLabels", "walkSound", "landSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen", "shotgunLoad")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("glitchSound", "mainShader", "objectiveOne", "objectiveTwo", "monologLabels", "walkSound", "landSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen", "shotgunLoad")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.824, 2.50975, -76.892)
 script = ExtResource("1_gvg2h")
 glitchSound = NodePath("glitchSound")
 mainShader = NodePath("../CanvasLayer/posterization")
 objectiveOne = NodePath("../CanvasLayer/Objectives/FindAGun")
 objectiveTwo = NodePath("../CanvasLayer/Objectives/KillGrandpa")
-objectivesPanel = NodePath("../CanvasLayer/Objectives")
 monologLabels = [NodePath("../CanvasLayer/FinalMonolog/Text1"), NodePath("../CanvasLayer/FinalMonolog/Text2"), NodePath("../CanvasLayer/FinalMonolog/Text3"), NodePath("../CanvasLayer/FinalMonolog/Text4"), NodePath("../CanvasLayer/FinalMonolog/Text5"), NodePath("../CanvasLayer/FinalMonolog/Text6"), NodePath("../CanvasLayer/FinalMonolog/Text7"), NodePath("../CanvasLayer/FinalMonolog/Text8"), NodePath("../CanvasLayer/FinalMonolog/Text9"), NodePath("../CanvasLayer/FinalMonolog/Text10"), NodePath("../CanvasLayer/FinalMonolog/Text11"), NodePath("../CanvasLayer/FinalMonolog/Text12")]
 SPEED = 5.5
 JUMP_VELOCITY = 3.2
@@ -18921,6 +18964,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.087113, 0, 0)
 shape = SubResource("BoxShape3D_n662p")
 debug_color = Color(0.152941, 0.976471, 0.321569, 1)
 
+[node name="Node3D18" type="Node3D" parent="Colliders"]
+transform = Transform3D(-1.8684e-06, 0.456578, 0.889745, 2.01824, 0.887609, -0.45678, -45.5504, 0.0393281, -0.020239, -4.19802, 1.26532, -55.191)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Colliders/Node3D18"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/Node3D18/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.087113, 0, 0)
+shape = SubResource("BoxShape3D_n662p")
+debug_color = Color(0.152941, 0.976471, 0.321569, 1)
+
+[node name="Node3D19" type="Node3D" parent="Colliders"]
+transform = Transform3D(0.126154, 0.7145, 0.699093, 1.91443, 0.697402, -0.714971, -45.5547, 0.0312869, -0.0281106, 5.04822, 1.25957, -55.2003)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Colliders/Node3D19"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Colliders/Node3D19/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.087113, 0, 0)
+shape = SubResource("BoxShape3D_n662p")
+debug_color = Color(0.152941, 0.976471, 0.321569, 1)
+
 [node name="Node3D13" type="Node3D" parent="Colliders"]
 transform = Transform3D(95.7044, 0, 0, 0, 0.889416, 0.457098, 0, -0.457098, 0.889416, 11.3824, 0.0591269, -14.5663)
 
@@ -19922,7 +19985,7 @@ text = "You lashed out"
 label_settings = SubResource("LabelSettings_81ibf")
 horizontal_alignment = 1
 
-[node name="Objectives" type="ColorRect" parent="CanvasLayer"]
+[node name="Objectives" type="TextureRect" parent="CanvasLayer"]
 layout_direction = 2
 anchors_preset = 1
 anchor_left = 1.0
@@ -19930,7 +19993,7 @@ anchor_right = 1.0
 offset_left = -275.0
 offset_bottom = 200.0
 grow_horizontal = 0
-color = Color(0.427451, 0.376471, 0.360784, 0.752941)
+texture = ExtResource("41_pfggx")
 
 [node name="Label" type="Label" parent="CanvasLayer/Objectives"]
 layout_mode = 1
@@ -19969,6 +20032,192 @@ offset_bottom = 12.5
 grow_vertical = 2
 text = "Kill young grandpa"
 label_settings = SubResource("LabelSettings_hbfuf")
+
+[node name="pause_menu" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "mainPage", "settingsPage", "hoverSound", "clickSound", "volumeSlider", "qualityDropdown")]
+process_mode = 3
+visible = false
+script = ExtResource("1_lrx7s")
+pause_menu = NodePath(".")
+mainPage = NodePath("Main")
+settingsPage = NodePath("Settings")
+hoverSound = NodePath("hoverSound")
+clickSound = NodePath("clickSound")
+volumeSlider = NodePath("Settings/volumeSlider")
+qualityDropdown = NodePath("Settings/quallityDropdown")
+
+[node name="bg" type="ColorRect" parent="pause_menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.270588, 0.270588, 0.270588, 0.380392)
+
+[node name="Main" type="Control" parent="pause_menu"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title" type="Label" parent="pause_menu/Main"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 497.0
+offset_bottom = 91.0
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_rjxcw")
+
+[node name="CenterContainer" type="CenterContainer" parent="pause_menu/Main"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 132.0
+offset_right = 312.0
+offset_bottom = 300.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu/Main/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="resumeGame" type="Button" parent="pause_menu/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("37_cqn3i")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ih5kd")
+action_mode = 0
+text = "RESUME"
+flat = true
+
+[node name="settings" type="Button" parent="pause_menu/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("37_cqn3i")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ih5kd")
+action_mode = 0
+text = "SETTINGS"
+flat = true
+
+[node name="goToMenu" type="Button" parent="pause_menu/Main/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("37_cqn3i")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5fsa8")
+action_mode = 0
+text = "GO TO MENU"
+flat = true
+
+[node name="Settings" type="Control" parent="pause_menu"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="pause_menu/Settings"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 497.0
+offset_bottom = 91.0
+text = "SETTINGS"
+label_settings = SubResource("LabelSettings_rjxcw")
+
+[node name="VOLUME" type="Label" parent="pause_menu/Settings"]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 213.0
+offset_right = 178.0
+offset_bottom = 250.0
+text = "VOLUME"
+label_settings = SubResource("LabelSettings_05yq0")
+
+[node name="QUALLITY" type="Label" parent="pause_menu/Settings"]
+layout_mode = 2
+offset_left = 56.0
+offset_top = 270.0
+offset_right = 198.0
+offset_bottom = 307.0
+text = "QUALITY"
+label_settings = SubResource("LabelSettings_05yq0")
+
+[node name="exitSettings" type="Button" parent="pause_menu/Settings"]
+layout_mode = 2
+offset_left = 53.0
+offset_top = 323.0
+offset_right = 142.0
+offset_bottom = 368.0
+theme_override_fonts/font = ExtResource("37_cqn3i")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_ih5kd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5fsa8")
+action_mode = 0
+text = "EXIT"
+flat = true
+
+[node name="volumeSlider" type="HSlider" parent="pause_menu/Settings"]
+custom_minimum_size = Vector2(400, 12)
+layout_mode = 0
+offset_left = 192.0
+offset_top = 223.0
+offset_right = 592.0
+offset_bottom = 239.0
+theme_override_constants/center_grabber = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_ijjnx")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_farr3")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_farr3")
+max_value = 1.0
+step = 0.01
+
+[node name="quallityDropdown" type="OptionButton" parent="pause_menu/Settings"]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 274.0
+offset_right = 303.0
+offset_bottom = 305.0
+theme = SubResource("Theme_2og2g")
+theme_override_fonts/font = ExtResource("37_cqn3i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ryqjx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5xf1h")
+flat = true
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "LOW"
+popup/item_0/id = 0
+popup/item_1/text = "MEDIUM"
+popup/item_1/id = 1
+popup/item_2/text = "HIGH"
+popup/item_2/id = 2
+
+[node name="clickSound" type="AudioStreamPlayer2D" parent="pause_menu"]
+stream = ExtResource("39_74xsy")
+volume_db = 15.0
+
+[node name="hoverSound" type="AudioStreamPlayer2D" parent="pause_menu"]
+stream = ExtResource("40_6hgc4")
+volume_db = 15.0
 
 [node name="Shotgun" type="Node3D" parent="."]
 transform = Transform3D(-9.23662e-09, -0.211309, 0.453154, 0.5, -2.18557e-08, 0, 1.9808e-08, 0.453154, 0.211309, -90.3399, 0.895975, -51.7501)
@@ -20596,6 +20845,18 @@ mesh = SubResource("BoxMesh_74xsy")
 transform = Transform3D(1.91108, -0.193121, 0, 0.376152, 0.981175, 0, 0, 0, 1, -7.24216, 2.01987, -73.6935)
 mesh = SubResource("BoxMesh_74xsy")
 
+[connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/resumeGame" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/resumeGame" to="pause_menu" method="_on_resume_game_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/settings" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/settings" to="pause_menu" method="_on_settings_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/goToMenu" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/goToMenu" to="pause_menu" method="_on_go_to_menu_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Settings/exitSettings" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="pressed" from="pause_menu/Settings/exitSettings" to="pause_menu" method="_on_exit_settings_pressed"]
+[connection signal="mouse_entered" from="pause_menu/Settings/volumeSlider" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
+[connection signal="value_changed" from="pause_menu/Settings/volumeSlider" to="pause_menu" method="_on_volume_slider_value_changed"]
+[connection signal="item_selected" from="pause_menu/Settings/quallityDropdown" to="pause_menu" method="_on_quallity_dropdown_item_selected"]
+[connection signal="mouse_entered" from="pause_menu/Settings/quallityDropdown" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
 [connection signal="body_entered" from="mrTime" to="mrTime" method="_on_body_entered"]
 
 [editable path="youngGrandpa/youngGrandpa2"]

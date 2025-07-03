@@ -15463,13 +15463,14 @@ shadow_enabled = true
 shadow_opacity = 0.2
 sky_mode = 1
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("glitchSound", "mainShader", "objectiveOne", "objectiveTwo", "monologLabels", "walkSound", "landSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen", "shotgunLoad")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("glitchSound", "mainShader", "objectiveOne", "objectiveTwo", "objectivesPanel", "monologLabels", "walkSound", "landSound", "head", "animation_player", "shotgun", "shotgun_prefab", "youngGrandpa", "grampsCollider", "raycast", "pickup_text", "muzzle_flash_animation", "muzzle_flash_model", "shotgun_sound", "muzzle_flash_light", "blackScreen", "shotgunLoad")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.824, 2.50975, -76.892)
 script = ExtResource("1_gvg2h")
 glitchSound = NodePath("glitchSound")
 mainShader = NodePath("../CanvasLayer/posterization")
 objectiveOne = NodePath("../CanvasLayer/Objectives/FindAGun")
 objectiveTwo = NodePath("../CanvasLayer/Objectives/KillGrandpa")
+objectivesPanel = NodePath("../CanvasLayer/Objectives")
 monologLabels = [NodePath("../CanvasLayer/FinalMonolog/Text1"), NodePath("../CanvasLayer/FinalMonolog/Text2"), NodePath("../CanvasLayer/FinalMonolog/Text3"), NodePath("../CanvasLayer/FinalMonolog/Text4"), NodePath("../CanvasLayer/FinalMonolog/Text5"), NodePath("../CanvasLayer/FinalMonolog/Text6"), NodePath("../CanvasLayer/FinalMonolog/Text7"), NodePath("../CanvasLayer/FinalMonolog/Text8"), NodePath("../CanvasLayer/FinalMonolog/Text9"), NodePath("../CanvasLayer/FinalMonolog/Text10"), NodePath("../CanvasLayer/FinalMonolog/Text11"), NodePath("../CanvasLayer/FinalMonolog/Text12")]
 SPEED = 5.5
 JUMP_VELOCITY = 3.2

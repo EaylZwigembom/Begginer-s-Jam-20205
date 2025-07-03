@@ -12,7 +12,7 @@ var canLand
 @export var fadeScren : ColorRect
 @export var objectiveOne : Label
 @export var objectiveTwo : Label
-@export var objectivesPanel : ColorRect
+@export var objectivesPanel : TextureRect
 @export var monologLabels : Array[Label]
 
 var deltaTime
@@ -56,6 +56,8 @@ var target_gun = null
 @export var monolog : Label
 @export var shotgunLoad : AudioStreamPlayer2D
 
+@export var darkAmbience : AudioStreamPlayer2D
+
 func _ready():
 	previous_position = global_transform.origin
 	yaw = rotation.y  # Sync with scene setup
@@ -78,6 +80,9 @@ func _ready():
 		youngGrandpa.visible = false
 		grampsCollider.disabled = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	if get_tree().current_scene.scene_file_path == "res://Scenes/kickAssTransition.tscn":
+		darkAmbience.play()
 
 func _physics_process(delta: float) -> void:
 	deltaTime = delta
@@ -215,6 +220,7 @@ func BeatTimmy():
 		fadeAnimation.play("fade")
 		await fadeAnimation.animation_finished
 		await time(2)
+		Global.audio_position = darkAmbience.get_playback_position()
 		get_tree().change_scene_to_file("res://Scenes/KickGrandchildAss.tscn")
 		
 func StartChase() -> void:

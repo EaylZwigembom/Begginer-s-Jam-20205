@@ -1,5 +1,6 @@
-[gd_scene load_steps=64 format=3 uid="uid://c0v1be6acayxf"]
+[gd_scene load_steps=67 format=3 uid="uid://c0v1be6acayxf"]
 
+[ext_resource type="Script" uid="uid://r0nc155vone2" path="res://Scenes/playAmbience.gd" id="1_dgdxf"]
 [ext_resource type="PackedScene" uid="uid://cnmmhr5u874my" path="res://Assets/Models/More than 2 scences/ps1-house/ps1_house.glb" id="1_mjbsb"]
 [ext_resource type="Material" uid="uid://j2flvv7on2l0" path="res://Assets/Materials/plank_mat.tres" id="2_8mmhx"]
 [ext_resource type="PackedScene" uid="uid://b74xyyg0u87x3" path="res://Assets/Models/Scene - Grandpa Kicks Ass/Furniture/old_lowpoly_furniture.glb" id="3_iofwl"]
@@ -26,6 +27,7 @@
 [ext_resource type="FontFile" uid="uid://43uxqkamp0va" path="res://Assets/Fonts/fake receipt.otf" id="24_dgdxf"]
 [ext_resource type="AudioStream" uid="uid://bemg4n0be1j3g" path="res://Assets/SFX/clickSound.wav" id="25_hc8sy"]
 [ext_resource type="AudioStream" uid="uid://62u8ynqmd3fi" path="res://Assets/SFX/hoverSound.wav" id="26_r1tg0"]
+[ext_resource type="AudioStream" uid="uid://ctajm5574wf1a" path="res://Assets/Music/darkAmbience.wav" id="28_hc8sy"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_8diyt"]
 
@@ -2390,6 +2392,10 @@ font = ExtResource("18_0bep1")
 font_size = 30
 font_color = Color(1, 0.0666667, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_hc8sy"]
+font = ExtResource("24_dgdxf")
+font_size = 17
+
 [sub_resource type="LabelSettings" id="LabelSettings_nsjtq"]
 font = ExtResource("24_dgdxf")
 font_size = 65
@@ -2482,7 +2488,9 @@ _data = {
 &"unFade": SubResource("Animation_mjbsb")
 }
 
-[node name="KickGranchildAss" type="Node3D"]
+[node name="KickGranchildAss" type="Node3D" node_paths=PackedStringArray("darkAmbience")]
+script = ExtResource("1_dgdxf")
+darkAmbience = NodePath("darkAMbience")
 
 [node name="House" parent="." instance=ExtResource("1_mjbsb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00261664, 0.0120818, -0.0242524)
@@ -2634,7 +2642,7 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.685287, 0.812038,
 transform = Transform3D(1, 0, 0, 0, 0.893371, 0.449319, 0, -0.449319, 0.893371, -1.19822, 1.6186, 0.113133)
 current = true
 
-[node name="Grandpa" type="Node3D" parent="." node_paths=PackedStringArray("anim", "blackScreen", "labels", "fade", "unFade")]
+[node name="Grandpa" type="Node3D" parent="." node_paths=PackedStringArray("anim", "blackScreen", "labels", "fade", "unFade", "talkLabel", "talkControl")]
 transform = Transform3D(-4.37114e-08, 0.121869, 0.992546, 0, 0.992546, -0.121869, -1, -5.32708e-09, -4.33856e-08, -1.32007, 0.0807212, -1.67504)
 script = ExtResource("13_mjbsb")
 anim = NodePath("Model_And_Animations/AnimationPlayer")
@@ -2642,6 +2650,8 @@ blackScreen = NodePath("../CanvasLayer/blackScreen")
 labels = [NodePath("../CanvasLayer/Monolog/Text1"), NodePath("../CanvasLayer/Monolog/Text2"), NodePath("../CanvasLayer/Monolog/Text3"), NodePath("../CanvasLayer/Monolog/Text4"), NodePath("../CanvasLayer/Monolog/Text6"), NodePath("../CanvasLayer/Monolog/Text7"), NodePath("../CanvasLayer/Monolog/Text8"), NodePath("../CanvasLayer/Monolog/Text9"), NodePath("../CanvasLayer/Monolog/Text10"), NodePath("../CanvasLayer/Monolog/Text11"), NodePath("../CanvasLayer/Monolog/Text12")]
 fade = NodePath("../CanvasLayer/Fade")
 unFade = NodePath("../unFadeAnimation")
+talkLabel = NodePath("../CanvasLayer/talk/talk")
+talkControl = NodePath("../CanvasLayer/talk")
 
 [node name="Model_And_Animations" parent="Grandpa" instance=ExtResource("14_ka1qv")]
 
@@ -3041,6 +3051,49 @@ text = "So you decide to end it all"
 label_settings = SubResource("LabelSettings_o7ji8")
 horizontal_alignment = 1
 
+[node name="talk" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="bg" type="ColorRect" parent="CanvasLayer/talk"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 536.0
+offset_top = 568.0
+offset_right = 576.0
+offset_bottom = 608.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(15.76, 4.32)
+pivot_offset = Vector2(19.5246, 40.0703)
+mouse_filter = 2
+color = Color(0, 0, 0, 0.721569)
+
+[node name="man" type="Label" parent="CanvasLayer/talk"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 488.0
+offset_right = 383.0
+offset_bottom = 513.0
+text = "Grandpa:"
+label_settings = SubResource("LabelSettings_hc8sy")
+
+[node name="talk" type="Label" parent="CanvasLayer/talk"]
+layout_mode = 0
+offset_left = 336.0
+offset_top = 552.0
+offset_right = 431.0
+offset_bottom = 577.0
+text = "EAT SHIT LITTLE TIMMY!"
+label_settings = SubResource("LabelSettings_hc8sy")
+
 [node name="pause_menu" type="CanvasLayer" parent="." node_paths=PackedStringArray("pause_menu", "mainPage", "settingsPage", "hoverSound", "clickSound", "volumeSlider", "qualityDropdown")]
 process_mode = 3
 visible = false
@@ -3231,6 +3284,9 @@ volume_db = 15.0
 libraries = {
 &"": SubResource("AnimationLibrary_iofwl")
 }
+
+[node name="darkAMbience" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("28_hc8sy")
 
 [connection signal="mouse_entered" from="pause_menu/Main/CenterContainer/VBoxContainer/resumeGame" to="pause_menu" method="_on_go_to_menu_mouse_entered"]
 [connection signal="pressed" from="pause_menu/Main/CenterContainer/VBoxContainer/resumeGame" to="pause_menu" method="_on_resume_game_pressed"]
